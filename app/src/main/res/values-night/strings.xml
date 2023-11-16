@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loginText">Login</string>
+    <string name="create_account_text">Create Account</string>
+    <string name="shopsmart_text">ShopSmart</string>
+</resources>

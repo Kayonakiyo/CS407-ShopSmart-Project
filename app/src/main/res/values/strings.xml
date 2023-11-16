@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ShopSmart</string>
+    <string name="loginText">Login</string>
+    <string name="create_account_text">Create Account</string>
+    <string name="shopsmart_text">ShopSmart</string>
+</resources>
