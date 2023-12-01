@@ -15,6 +15,7 @@ public class HomeLoginScreen extends AppCompatActivity {
     // UI Elements
     Button loginButton;
     Button createAccountButton;
+    Button debugSwitchToSavedShopping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class HomeLoginScreen extends AppCompatActivity {
         // Initialize UI Elements
         loginButton = findViewById(R.id.LoginButton);
         createAccountButton = findViewById(R.id.CreateAccountButton);
+        debugSwitchToSavedShopping = findViewById(R.id.switchtosaved);
 
         // Add element onClick functions
         loginButton.setOnClickListener(v -> {
@@ -34,6 +36,11 @@ public class HomeLoginScreen extends AppCompatActivity {
         createAccountButton.setOnClickListener(v -> {
             Intent switchToCreateAccount = new Intent(this, RegistrationScreen.class);
             startActivity(switchToCreateAccount);
+        });
+
+        debugSwitchToSavedShopping.setOnClickListener(v -> {
+            Intent switchToSavedShopping = new Intent(this, SavedShopping.class);
+            startActivity(switchToSavedShopping);
         });
 
 
