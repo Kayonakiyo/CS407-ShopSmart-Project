@@ -1,9 +1,10 @@
 package com.cs407.shopsmart;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ActionBar;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKey;
@@ -22,13 +23,28 @@ public class LoginScreen extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
 
         // Shows the nav arrow on top of screen
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         randomGen = new SecureRandom();
         loginDatabase = getSharedPreferences("loginDatabase", MODE_PRIVATE);
+    }
 
+    /**
+     * Deals with navigating back by one activity.
+     *
+     * @param item The menu item that was selected.
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
 
+        if (id == android.R.id.home){
+            navigateUpTo(new Intent(this, HomeLoginScreen.class));
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -27,12 +27,12 @@ public class HomeLoginScreen extends AppCompatActivity {
 
         // Add element onClick functions
         loginButton.setOnClickListener(v -> {
-            Intent switchToLogin = new Intent(getApplicationContext(), LoginScreen.class);
+            Intent switchToLogin = new Intent(this, LoginScreen.class);
             startActivity(switchToLogin);
         });
 
         createAccountButton.setOnClickListener(v -> {
-            Intent switchToCreateAccount = new Intent(getApplicationContext(), RegistrationScreen.class);
+            Intent switchToCreateAccount = new Intent(this, RegistrationScreen.class);
             startActivity(switchToCreateAccount);
         });
 
