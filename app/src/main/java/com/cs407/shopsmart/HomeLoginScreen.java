@@ -2,6 +2,7 @@ package com.cs407.shopsmart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -23,6 +24,18 @@ public class HomeLoginScreen extends AppCompatActivity {
         // Initialize UI Elements
         loginButton = findViewById(R.id.LoginButton);
         createAccountButton = findViewById(R.id.CreateAccountButton);
+
+        // Add element onClick functions
+        loginButton.setOnClickListener(v -> {
+            Intent switchToLogin = new Intent(getApplicationContext(), LoginScreen.class);
+            startActivity(switchToLogin);
+        });
+
+        createAccountButton.setOnClickListener(v -> {
+            Intent switchToCreateAccount = new Intent(getApplicationContext(), RegistrationScreen.class);
+            startActivity(switchToCreateAccount);
+        });
+
 
 
     }
