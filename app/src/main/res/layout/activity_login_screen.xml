@@ -24,6 +24,8 @@
         android:id="@+id/editTextUsername"
         android:layout_width="350dp"
         android:layout_height="50dp"
+        android:background="@drawable/edit_text_background"
+        android:backgroundTint="#B0E57C"
         android:hint="Username"
         android:inputType="text"
         android:maxLines="1"
@@ -40,6 +42,8 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_below="@id/editTextUsername"
+        android:background="@drawable/edit_text_background"
+        android:backgroundTint="#B0E57C"
         android:hint="Password"
         android:inputType="textPassword"
         android:maxLines="1"
@@ -52,7 +56,7 @@
         app:layout_goneMarginTop="10dp" />
 
     <Button
-        android:id="@+id/buttonRegister"
+        android:id="@+id/buttonLogin"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_below="@id/editTextUsername"
