@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -21,7 +20,6 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import android.view.MenuItem;
 
 public class RegistrationScreen extends AppCompatActivity {
 
@@ -30,6 +28,7 @@ public class RegistrationScreen extends AppCompatActivity {
     EditText confirmPassword;
     Button registerButton;
     SharedPreferences loginDatabase;
+    SharedPreferences userSession; // holds who is logged in right now
     SecureRandom randomGen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +46,13 @@ public class RegistrationScreen extends AppCompatActivity {
         registerButton = findViewById(R.id.buttonRegister);
 
         loginDatabase = getSharedPreferences("loginDatabase", MODE_PRIVATE);
+        userSession = getSharedPreferences("userSession", MODE_PRIVATE);
 
         registerButton.setOnClickListener(v -> {
-            handleRegistration(username.getText().toString(), password.getText().toString(), confirmPassword.getText().toString(), password, confirmPassword);
+            if(handleRegistration(username.getText().toString(), password.getText().toString(), confirmPassword.getText().toString(), password, confirmPassword)){
+                Toast.makeText(this, "Successfully registered user! You may log in now.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, HomeLoginScreen.class));
+            }
         });
 
     }
@@ -108,17 +111,18 @@ public class RegistrationScreen extends AppCompatActivity {
         randomGen.nextBytes(saltBytes);
         SecretKey hashedPassword = null;
         String encodedKeyAndSalt = "[";
-        String saltString = saltBytes.toString();
+        String saltString = Base64.getEncoder().encodeToString(saltBytes);
         try{
             hashedPassword = pbkdf2(password.toCharArray(), saltBytes, 4096, 256);
-            encodedKeyAndSalt += Base64.getEncoder().encodeToString(hashedPassword.getEncoded());
+            encodedKeyAndSalt += Base64.getEncoder().encodeToString(hashedPassword.getEncoded()) + ",";
         } catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         } catch (InvalidKeySpecException e){
             e.printStackTrace();
         }
+        encodedKeyAndSalt += saltString + "]";
         SharedPreferences.Editor editor = loginDatabase.edit();
-        editor.putString(username, encodedKeyAndSalt);
+        editor.putString(username, encodedKeyAndSalt); // save the hashed password and salt as an 'array', can be deserialized easily.
         editor.apply();
 
         return true;
