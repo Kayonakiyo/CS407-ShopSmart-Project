@@ -56,11 +56,11 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
 
         ViewHolder(View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.item_name); // ID from your item layout
-            itemPrice = itemView.findViewById(R.id.item_price); // ID from your item layout
-            itemStore = itemView.findViewById(R.id.item_store); // ID from your item layout
-            itemOnlineLink = itemView.findViewById(R.id.item_online_link); // ID from your item layout
-            itemImage = itemView.findViewById(R.id.item_image); // ID from your item layout
+            itemName = itemView.findViewById(R.id.item_name);
+            itemPrice = itemView.findViewById(R.id.item_price);
+            itemStore = itemView.findViewById(R.id.item_store);
+            itemOnlineLink = itemView.findViewById(R.id.item_online_link);
+            itemImage = itemView.findViewById(R.id.item_image);
         }
     }
 }
