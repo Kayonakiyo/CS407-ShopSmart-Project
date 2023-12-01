@@ -1,8 +1,11 @@
 package com.cs407.shopsmart;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,11 +38,15 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
         holder.itemName.setText(item.getName());
         holder.itemPrice.setText("$" + String.format("%.2f", item.getPrice()));
         holder.itemStore.setText(item.getStore());
-        holder.itemOnlineLink.setText(item.getOnlineLink());
 
         Glide.with(holder.itemView.getContext())
                 .load(item.getImageUrl())
                 .into(holder.itemImage);
+
+        holder.viewOnlineButton.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getOnlineLink()));
+            holder.itemView.getContext().startActivity(browserIntent);
+        });
     }
 
     @Override
@@ -51,16 +58,16 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
         TextView itemName;
         TextView itemPrice;
         TextView itemStore;
-        TextView itemOnlineLink;
         ImageView itemImage;
+        Button viewOnlineButton; // Button for viewing the online link
 
         ViewHolder(View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.item_name);
             itemPrice = itemView.findViewById(R.id.item_price);
             itemStore = itemView.findViewById(R.id.item_store);
-            itemOnlineLink = itemView.findViewById(R.id.item_online_link);
             itemImage = itemView.findViewById(R.id.item_image);
+            viewOnlineButton = itemView.findViewById(R.id.item_view_online_button); // Initialize the button
         }
     }
 }

@@ -23,7 +23,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/item_image"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Product Name" />
+        android:text="Product Name"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/item_price"
@@ -43,13 +44,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Store Name" />
 
-    <TextView
-        android:id="@+id/item_online_link"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/item_view_online_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="View Online"
         app:layout_constraintTop_toBottomOf="@+id/item_store"
         app:layout_constraintStart_toEndOf="@+id/item_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="http://link.com" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

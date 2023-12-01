@@ -9,6 +9,10 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.drawable.Drawable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+
 public class SavedShopping extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -20,12 +24,17 @@ public class SavedShopping extends AppCompatActivity {
         setContentView(R.layout.activity_saved_shopping);
 
         // Initialize RecyclerView
-        recyclerView = findViewById(R.id.saved_items_recycler_view); // Make sure this ID matches with your XML
+        recyclerView = findViewById(R.id.saved_items_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize your adapter with fake data
         adapter = new SavedShoppingAdapter(createFakeData());
         recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.divider);
+        dividerItemDecoration.setDrawable(drawable);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     private List<ShoppingCartData> createFakeData() {
