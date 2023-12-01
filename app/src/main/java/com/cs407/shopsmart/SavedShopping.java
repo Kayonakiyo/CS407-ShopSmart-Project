@@ -24,7 +24,7 @@ public class SavedShopping extends AppCompatActivity {
         setContentView(R.layout.activity_saved_shopping);
 
         // Initialize RecyclerView
-        recyclerView = findViewById(R.id.saved_items_recycler_view); // Make sure this ID matches with your XML
+        recyclerView = findViewById(R.id.saved_items_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize your adapter with fake data
