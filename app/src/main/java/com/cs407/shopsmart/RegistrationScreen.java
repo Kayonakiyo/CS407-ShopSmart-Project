@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import android.view.MenuItem;
 
 public class RegistrationScreen extends AppCompatActivity {
 
@@ -34,6 +36,10 @@ public class RegistrationScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_screen);
 
+        // Shows the nav arrow on top of screen
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         randomGen = new SecureRandom();
         username = findViewById(R.id.editTextUsername);
         password = findViewById(R.id.editTextPassword);
@@ -41,15 +47,32 @@ public class RegistrationScreen extends AppCompatActivity {
         registerButton = findViewById(R.id.buttonRegister);
 
         loginDatabase = getSharedPreferences("loginDatabase", MODE_PRIVATE);
-        // Shows the nav arrow on top of screen
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         registerButton.setOnClickListener(v -> {
             handleRegistration(username.getText().toString(), password.getText().toString(), confirmPassword.getText().toString(), password, confirmPassword);
         });
 
     }
+
+
+    /**
+     * Deals with navigating back by one activity.
+     *
+     * @param item The menu item that was selected.
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            navigateUpTo(new Intent(this, HomeLoginScreen.class));
+            return true;
+        }
+        return false;
+    }
+
+
 
     private boolean handleRegistration(String username, String password, String confirmPassword, EditText passwordField, EditText repPasswordField){
         if(username == null || username.trim().length() == 0){
@@ -100,24 +123,6 @@ public class RegistrationScreen extends AppCompatActivity {
 
         return true;
     }
-
-    /**
-     * Deals with navigating back by one activity.
-     *
-     * @param item The menu item that was selected.
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        if (id == android.R.id.home){
-            navigateUpTo(new Intent(this, HomeLoginScreen.class));
-            return true;
-        }
-        return false;
-    }
-
 
     /**
      * A helper function that can take in a password, a random salt, and allows the user
