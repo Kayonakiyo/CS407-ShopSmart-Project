@@ -125,6 +125,12 @@ public class RegistrationScreen extends AppCompatActivity {
         editor.putString(username, encodedKeyAndSalt); // save the hashed password and salt as an 'array', can be deserialized easily.
         editor.apply();
 
+        // After successful registration, this user is now logged in and session reflects that.
+        editor = userSession.edit();
+        editor.putString("username", username);
+        editor.putBoolean("loggedIn", true);
+        editor.apply();
+
         return true;
     }
 
