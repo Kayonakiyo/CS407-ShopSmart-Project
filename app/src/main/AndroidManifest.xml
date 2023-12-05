@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ShopSmart"
         tools:targetApi="31">
         <activity
+            android:name=".search_demo"
+            android:exported="false" />
+        <activity
             android:name=".ProfilePage"
             android:exported="false" />
         <activity
