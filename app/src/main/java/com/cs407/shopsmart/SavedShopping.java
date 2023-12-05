@@ -1,15 +1,25 @@
 package com.cs407.shopsmart;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import android.graphics.drawable.Drawable;
+import android.widget.Toast;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
@@ -17,17 +27,39 @@ public class SavedShopping extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private SavedShoppingAdapter adapter;
+    private ArrayList<ShoppingCartData> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_shopping);
 
+        // Get test data
+
+        Gson jsonParser = new Gson();
+        Scanner reader = null;
+        try {
+            reader = new Scanner(getAssets().open("UWBSData.json"));
+        } catch (FileNotFoundException e) {
+            Toast.makeText(this, "Could not parse data!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), HomeLoginScreen.class));
+            return;
+        } catch (IOException e) {
+            Toast.makeText(this, "Could not parse data!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), HomeLoginScreen.class));
+            return;
+        }
+        String dataString = "";
+        while(reader.hasNextLine()){
+            dataString += reader.nextLine();
+        }
+        items = jsonParser.fromJson(dataString, new TypeToken<ArrayList<ShoppingCartData>>(){}.getType());
+
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.saved_items_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new SavedShoppingAdapter(createFakeData());
+        adapter = new SavedShoppingAdapter(items);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
