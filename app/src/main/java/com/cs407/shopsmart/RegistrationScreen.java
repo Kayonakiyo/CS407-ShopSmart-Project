@@ -51,7 +51,7 @@ public class RegistrationScreen extends AppCompatActivity {
         registerButton.setOnClickListener(v -> {
             if(handleRegistration(username.getText().toString(), password.getText().toString(), confirmPassword.getText().toString(), password, confirmPassword)){
                 Toast.makeText(this, "Successfully registered user! You may log in now.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, HomeLoginScreen.class));
+                startActivity(new Intent(this, RegistrationShopSelection.class));
             }
         });
 
