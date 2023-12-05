@@ -3,11 +3,11 @@ package com.cs407.shopsmart;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -42,9 +42,9 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
                 .load(currentItem.getImageUrl())
                 .into(holder.itemImage);
 
+
         holder.viewOnlineButton.setOnClickListener(v -> {
-            // Implement your logic to open the product link
-            // For example, you might start a new Activity with a WebView or open the link in a browser
+            // Open product link logic
         });
     }
 
@@ -62,19 +62,16 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<ShoppingCartData> filteredList = new ArrayList<>();
-
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(itemListFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-
                 for (ShoppingCartData item : itemListFull) {
                     if (item.getName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
             }
-
             FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
@@ -87,6 +84,12 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             notifyDataSetChanged();
         }
     };
+
+    public void updateList(List<ShoppingCartData> newList) {
+        itemList.clear();
+        itemList.addAll(newList);
+        notifyDataSetChanged();
+    }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView itemName;

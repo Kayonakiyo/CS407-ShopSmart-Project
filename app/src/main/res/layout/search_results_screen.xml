@@ -18,10 +18,12 @@
         android:padding="8dp"
         android:hint="Search"
         android:inputType="text"
+        android:imeOptions="actionSearch"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/filterChipGroup"
