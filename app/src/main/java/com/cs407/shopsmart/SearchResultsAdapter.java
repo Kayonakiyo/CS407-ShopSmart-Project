@@ -1,5 +1,8 @@
 package com.cs407.shopsmart;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +30,13 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_saved_shopping, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_results, parent, false);
         return new ItemViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         ShoppingCartData currentItem = itemList.get(position);
-        holder.itemName.setText(currentItem.getName());
         holder.itemPrice.setText("$" + String.format("%.2f", currentItem.getPrice()));
         holder.itemStore.setText(currentItem.getStore());
 
@@ -42,9 +44,9 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
                 .load(currentItem.getImageUrl())
                 .into(holder.itemImage);
 
-
-        holder.viewOnlineButton.setOnClickListener(v -> {
-            // Open product link logic
+        holder.itemView.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentItem.getOnlineLink()));
+            v.getContext().startActivity(browserIntent);
         });
     }
 
@@ -92,19 +94,15 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView itemName;
         TextView itemPrice;
         TextView itemStore;
         ImageView itemImage;
-        Button viewOnlineButton;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.item_name);
-            itemPrice = itemView.findViewById(R.id.item_price);
-            itemStore = itemView.findViewById(R.id.item_store);
-            itemImage = itemView.findViewById(R.id.item_image);
-            viewOnlineButton = itemView.findViewById(R.id.item_view_online_button);
+            itemPrice = itemView.findViewById(R.id.item_search_price);
+            itemStore = itemView.findViewById(R.id.item_search_store);
+            itemImage = itemView.findViewById(R.id.item_search_image);
         }
     }
 }
