@@ -59,7 +59,7 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
         TextView itemPrice;
         TextView itemStore;
         ImageView itemImage;
-        Button viewOnlineButton; // Button for viewing the online link
+        Button viewOnlineButton;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -67,7 +67,7 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
             itemPrice = itemView.findViewById(R.id.item_price);
             itemStore = itemView.findViewById(R.id.item_store);
             itemImage = itemView.findViewById(R.id.item_image);
-            viewOnlineButton = itemView.findViewById(R.id.item_view_online_button); // Initialize the button
+            viewOnlineButton = itemView.findViewById(R.id.item_view_online_button);
         }
     }
 }

@@ -27,7 +27,6 @@ public class SavedShopping extends AppCompatActivity {
         recyclerView = findViewById(R.id.saved_items_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize your adapter with fake data
         adapter = new SavedShoppingAdapter(createFakeData());
         recyclerView.setAdapter(adapter);
 
@@ -39,6 +38,13 @@ public class SavedShopping extends AppCompatActivity {
 
     private List<ShoppingCartData> createFakeData() {
         List<ShoppingCartData> items = new ArrayList<>();
+        items.add(new ShoppingCartData(
+                "Apple - AirPods Pro - White",
+                249.99,
+                "BestBuy",
+                "https://www.bestbuy.com/site/apple-airpods-pro-white/5706659.p?skuId=5706659",
+                "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5706/5706659_sd.jpg"
+        ));
         items.add(new ShoppingCartData(
                 "Apple - 10.2-Inch iPad (9th Generation) with Wi-Fi - 64GB - Space Gray",
                 329.99,
