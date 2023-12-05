@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="116dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="98dp"
+        android:text="@string/shopsmart_text"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/searchItem"
+        android:layout_width="254dp"
+        android:layout_height="19dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/search_box"
+        android:gravity="center"
+        android:hint="Search"
+        android:inputType="text"
+        android:textSize="8dp"
+        android:drawableLeft="@drawable/search_icon"
+        tools:layout_editor_absoluteX="78dp"
+        tools:layout_editor_absoluteY="150dp" />
+
+    <ScrollView
+        android:layout_width="351dp"
+        android:layout_height="298dp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="191dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/trendingText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trending"
+                android:textAlignment="center" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trending_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:layout_alignParentBottom="true"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="364dp"
+        android:layout_height="219dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="512dp">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shop by Category"
+            android:textAlignment="center" />
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp"
+            app:alignmentMode="alignBounds"
+            app:columnCount="3"
+            app:rowCount="2">
+
+            <Button
+                android:id="@+id/techButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Tech"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
+
+            <Button
+                android:id="@+id/homeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Home"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
+
+            <Button
+                android:id="@+id/toysButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Toys"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
+
+            <Button
+                android:id="@+id/stationaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Stationary"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
+
+            <Button
+                android:id="@+id/clothingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Clothing"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
+
+            <Button
+                android:id="@+id/shopAllButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Shop All"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
+        </androidx.gridlayout.widget.GridLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
