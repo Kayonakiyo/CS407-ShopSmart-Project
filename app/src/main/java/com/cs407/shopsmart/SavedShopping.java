@@ -35,7 +35,6 @@ public class SavedShopping extends AppCompatActivity {
         setContentView(R.layout.activity_saved_shopping);
 
         // Get test data
-
         Gson jsonParser = new Gson();
         Scanner reader = null;
         try {
