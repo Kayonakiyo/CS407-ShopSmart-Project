@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <EditText
+        android:id="@+id/searchItem"
+        android:layout_width="254dp"
+        android:layout_height="19dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/search_box"
+        android:gravity="center"
+        android:hint="Search"
+        android:inputType="text"
+        android:textSize="8dp"
+        android:drawableLeft="@drawable/search_icon"
+        tools:layout_editor_absoluteX="78dp"
+        tools:layout_editor_absoluteY="150dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
