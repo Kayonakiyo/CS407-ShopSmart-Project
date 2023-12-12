@@ -31,15 +31,21 @@ public class MapScreen extends AppCompatActivity {
     private static final int PERMISSSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
     private final LatLng mDestinationLatLng = new LatLng(43.0757339,-89.4065813);
     private GoogleMap mMap;
-    private Map<String, LatLng> dict
+    private Map<String, LatLng> dict;
+
+    String store
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_screen);
 
+        Intent intent = getIntent();
+        store = intent.getStringExtra("storeName");
+
         dict = new HashMap<>();
 
-        // Add keys and their corresponding values
+        // Add keys and their latitudes and longitudes
+        // TODO: Replace with the actual lats and longs of the nearest stores
         dict.put("Target", new LatLng(1, 1));
         dict.put("Amazon", new LatLng(2, 2));
         dict.put("Walmart", new LatLng(3, 3));
@@ -67,7 +73,7 @@ public class MapScreen extends AppCompatActivity {
             mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(this, task -> {
                 Location mLastKnownLocation = task.getResult();
                 if(task.isSuccessful() && mLastKnownLocation != null){
-                    mMap.addPolyline(new PolylineOptions().add(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), mDestinationLatLng));
+                    mMap.addPolyline(new PolylineOptions().add(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), dict.get(store)));
                 }
                 SupportMapFragment mapFragment = (SupportMapFragment)
                         getSupportFragmentManager().findFragmentById(R.id.fragment_map);
