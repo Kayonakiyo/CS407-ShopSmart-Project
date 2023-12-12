@@ -25,6 +25,7 @@
         app:layout_constraintStart_toEndOf="@+id/item_image"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Product Name"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <TextView
@@ -34,6 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/item_name"
         app:layout_constraintStart_toEndOf="@+id/item_image"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#000000"
         android:text="$0.00" />
 
     <TextView
@@ -43,6 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/item_price"
         app:layout_constraintStart_toEndOf="@+id/item_image"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#000000"
         android:text="Store Name" />
 
     <Button

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 /**
@@ -18,9 +19,8 @@ public class HomeLoginScreen extends AppCompatActivity {
     Button createAccountButton;
     Button debugSwitchToSavedShopping;
     Button debugSwtichToSearchResults;
-
     Button debugSwitchToRegistrationShopSelection;
-
+    Button debugSwitchToHome;
     // SharedPreferences
     SharedPreferences userSession;
 
@@ -41,6 +41,7 @@ public class HomeLoginScreen extends AppCompatActivity {
         debugSwitchToSavedShopping = findViewById(R.id.switchtosaved);
         debugSwitchToRegistrationShopSelection = findViewById(R.id.switchtoshopselection);
         debugSwtichToSearchResults = findViewById(R.id.switchtosearch);
+        debugSwitchToHome = findViewById(R.id.switchtohome);
 
         // Add element onClick functions
         loginButton.setOnClickListener(v -> {
@@ -66,6 +67,11 @@ public class HomeLoginScreen extends AppCompatActivity {
         debugSwtichToSearchResults.setOnClickListener(v -> {
             Intent switchToSearch = new Intent(this, SearchResultsScreen.class);
             startActivity(switchToSearch);
+        });
+
+        debugSwitchToHome.setOnClickListener(v -> {
+            Intent switchToHome = new Intent(this, HomeScreen.class);
+            startActivity(switchToHome);
         });
     }
 

@@ -96,6 +96,8 @@ public class SearchResultsScreen extends AppCompatActivity {
             }
         });
 
+
+
         Intent intent = getIntent();
         String homeQuery = intent.getStringExtra("searchQuery");
         if(homeQuery != null) {

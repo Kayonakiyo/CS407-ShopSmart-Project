@@ -18,130 +18,57 @@ import java.util.List;
 public class HomeScreen extends AppCompatActivity {
 
     private RecyclerView trendingRecycler;
-
     private HomeScreenAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_shopping);
+        setContentView(R.layout.home_screen); // Ensure this is the correct layout file
 
-        // Initialize RecyclerView
-        trendingRecycler = findViewById(R.id.saved_items_recycler_view);
+        initializeRecyclerView();
+        setupCategoryButtons();
+    }
+
+    private void initializeRecyclerView() {
+        trendingRecycler = findViewById(R.id.trending_recycler_view);
         trendingRecycler.setLayoutManager(new LinearLayoutManager(this));
-
-        // Initialize your adapter with fake data
         adapter = new HomeScreenAdapter(createFakeData());
         trendingRecycler.setAdapter(adapter);
 
+        // Add divider decoration to the RecyclerView
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(trendingRecycler.getContext(), DividerItemDecoration.VERTICAL);
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.divider);
         dividerItemDecoration.setDrawable(drawable);
         trendingRecycler.addItemDecoration(dividerItemDecoration);
+    }
 
-        Button tech = (Button)findViewById(R.id.techButton);
+    private void setupCategoryButtons() {
+        setupButtonClickListener(R.id.techButton, "Tech");
+        setupButtonClickListener(R.id.homeButton, "Home");
+        setupButtonClickListener(R.id.toysButton, "Toys");
+        setupButtonClickListener(R.id.stationaryButton, "Stationary");
+        setupButtonClickListener(R.id.clothingButton, "Clothing");
+        setupButtonClickListener(R.id.shopAllButton, ""); // Empty string for "Shop All" category
+        setupSeeAllButtonListener(R.id.seeAll);
+    }
 
-        tech.setOnClickListener(new View.OnClickListener() {
+    private void setupButtonClickListener(int buttonId, String query) {
+        Button button = findViewById(buttonId);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to start the SearchResultsScreen activity
                 Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
-
-                // Put extra data (the word "Tech") into the intent
-                intent.putExtra("searchQuery", "Tech");
-
-                // Start the SearchResultsScreen activity with the intent
+                intent.putExtra("searchQuery", query);
                 startActivity(intent);
             }
         });
+    }
 
-        Button home = (Button)findViewById(R.id.homeButton);
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to start the SearchResultsScreen activity
-                Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
-
-                // Put extra data (the word "Tech") into the intent
-                intent.putExtra("searchQuery", "Home");
-
-                // Start the SearchResultsScreen activity with the intent
-                startActivity(intent);
-            }
-        });
-
-        Button toys = (Button)findViewById(R.id.toysButton);
-
-        toys.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to start the SearchResultsScreen activity
-                Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
-
-                // Put extra data (the word "Tech") into the intent
-                intent.putExtra("searchQuery", "Toys");
-
-                // Start the SearchResultsScreen activity with the intent
-                startActivity(intent);
-            }
-        });
-
-        Button stationary = (Button)findViewById(R.id.stationaryButton);
-
-        stationary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to start the SearchResultsScreen activity
-                Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
-
-                // Put extra data (the word "Tech") into the intent
-                intent.putExtra("searchQuery", "Stationary");
-
-                // Start the SearchResultsScreen activity with the intent
-                startActivity(intent);
-            }
-        });
-
-        Button clothing = (Button)findViewById(R.id.clothingButton);
-
-        clothing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to start the SearchResultsScreen activity
-                Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
-
-                // Put extra data (the word "Tech") into the intent
-                intent.putExtra("searchQuery", "Clothing");
-
-                // Start the SearchResultsScreen activity with the intent
-                startActivity(intent);
-            }
-        });
-
-        Button shopAll = (Button)findViewById(R.id.shopAllButton);
-
-        shopAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to start the SearchResultsScreen activity
-                Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
-
-                // Start the SearchResultsScreen activity with the intent
-                startActivity(intent);
-            }
-        });
-
-        Button trendingSeeAll = (Button)findViewById((R.id.seeAll));
-        trendingSeeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to start the SearchResultsScreen activity
-                Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
-
-                // Start the SearchResultsScreen activity with the intent
-                startActivity(intent);
-            }
+    private void setupSeeAllButtonListener(int buttonId) {
+        Button button = findViewById(buttonId);
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
+            startActivity(intent);
         });
     }
 
@@ -166,4 +93,5 @@ public class HomeScreen extends AppCompatActivity {
                 "https://target.scene7.com/is/image/Target/GUEST_50d6171b-266c-4904-8cd8-d27881569b20?wid=1200&hei=1200&qlt=80&fmt=webp"));
         return items;
     }
+
 }
