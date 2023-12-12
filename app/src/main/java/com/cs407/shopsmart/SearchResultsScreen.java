@@ -32,6 +32,10 @@ public class SearchResultsScreen extends AppCompatActivity {
     private Chip storeFilterChip;
     private Chip distFilterChip;
 
+    private Double minPriceFilter = null;
+    private Double maxPriceFilter = null;
+    private List<String> selectedStoresFilter = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +68,6 @@ public class SearchResultsScreen extends AppCompatActivity {
     }
 
     private void setupFilterChips() {
-        Chip priceFilterChip = findViewById(R.id.priceFilterChip);
-        Chip storeFilterChip = findViewById(R.id.storeFilterChip);
-        Chip distFilterChip = findViewById(R.id.distFilterChip);
-
         priceFilterChip.setOnCheckedChangeListener((chip, isChecked) -> {
             if (isChecked) {
                 showPriceFilterDialog();
@@ -93,7 +93,6 @@ public class SearchResultsScreen extends AppCompatActivity {
         });
     }
 
-
     private void showPriceFilterDialog() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.dialog_price_filter, null);
@@ -117,6 +116,11 @@ public class SearchResultsScreen extends AppCompatActivity {
                 .setNegativeButton("Cancel", (dialog, id) -> {
                     dialog.dismiss();
                     priceFilterChip.setChecked(false);
+                    clearPriceFilter();
+                })
+                .setOnCancelListener(dialogInterface -> {
+                    priceFilterChip.setChecked(false);
+                    clearPriceFilter();
                 });
 
         AlertDialog dialog = builder.create();
@@ -143,8 +147,12 @@ public class SearchResultsScreen extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", (dialog, id) -> {
                     dialog.dismiss();
-                    // Uncheck the store filter chip if you have the reference
-                    // Example: storeFilterChip.setChecked(false);
+                    storeFilterChip.setChecked(false);
+                    clearPriceFilter();
+                })
+                .setOnCancelListener(dialogInterface -> {
+                    storeFilterChip.setChecked(false);
+                    clearPriceFilter();
                 });
 
         AlertDialog dialog = builder.create();
@@ -152,7 +160,29 @@ public class SearchResultsScreen extends AppCompatActivity {
     }
 
     private void showDistanceFilterDialog() {
+        final String[] distances = {"5 miles", "10 miles", "15 miles"};
+        int checkedItem = -1;
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Filter by Distance")
+                .setSingleChoiceItems(distances, checkedItem, (dialog, which) -> {
+                    // 'which' is the index of the selected item
+                })
+                .setPositiveButton("Apply", (dialog, id) -> {
+                    // implement filtering logic
+                })
+                .setNegativeButton("Cancel", (dialog, id) -> {
+                    dialog.dismiss();
+                    distFilterChip.setChecked(false);
+                    clearPriceFilter();
+                })
+                .setOnCancelListener(dialogInterface -> {
+                    distFilterChip.setChecked(false);
+                    clearPriceFilter();
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void performSearch(String query) {
@@ -162,7 +192,9 @@ public class SearchResultsScreen extends AppCompatActivity {
                 filteredList.add(item);
             }
         }
-        adapter.updateList(filteredList);
+        // Update the allItems with search results and then apply all filters
+        allItems = filteredList;
+        applyAllFilters();
     }
 
     private List<ShoppingCartData> loadItemsFromJson() {
@@ -178,40 +210,82 @@ public class SearchResultsScreen extends AppCompatActivity {
     }
 
     private void applyPriceFilter(double minPrice, double maxPrice) {
-        List<ShoppingCartData> filteredList = new ArrayList<>();
-        for (ShoppingCartData item : allItems) {
-            double price = Double.parseDouble(String.valueOf(item.getPrice()));
-            if (price >= minPrice && price <= maxPrice) {
-                filteredList.add(item);
-            }
-        }
-        adapter.updateList(filteredList);
+        minPriceFilter = minPrice;
+        maxPriceFilter = maxPrice;
+        applyAllFilters();
     }
 
     private void applyStoreFilter(List<String> selectedStores) {
-        List<ShoppingCartData> filteredList = new ArrayList<>();
-        for (ShoppingCartData item : allItems) {
-            if (selectedStores.contains(item.getStore())) {
-                filteredList.add(item);
-            }
-        }
-        adapter.updateList(filteredList);
+        selectedStoresFilter = selectedStores;
+        applyAllFilters();
     }
 
+    // placeholder for the distance filter
     private void applyDistanceFilter(int distance) {
+        // Update this method when distance filtering is done
+        applyAllFilters();
+    }
 
+    private void applyAllFilters() {
+        List<ShoppingCartData> filteredList = new ArrayList<>(allItems);
+
+        if (minPriceFilter != null && maxPriceFilter != null) {
+            filteredList = filterByPrice(filteredList, minPriceFilter, maxPriceFilter);
+        }
+
+        if (!selectedStoresFilter.isEmpty()) {
+            filteredList = filterByStores(filteredList, selectedStoresFilter);
+        }
+
+        // Add distance filter logic when implemented
+
+        adapter.updateList(filteredList);
+
+        // Update chips based on whether filters are active
+        priceFilterChip.setChecked(minPriceFilter != null && maxPriceFilter != null);
+        storeFilterChip.setChecked(!selectedStoresFilter.isEmpty());
+        // Update distance chip when implemented
+    }
+
+    private List<ShoppingCartData> filterByPrice(List<ShoppingCartData> items, double minPrice, double maxPrice) {
+        List<ShoppingCartData> result = new ArrayList<>();
+        for (ShoppingCartData item : items) {
+            if (item.getPrice() >= minPrice && item.getPrice() <= maxPrice) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
+    private List<ShoppingCartData> filterByStores(List<ShoppingCartData> items, List<String> selectedStores) {
+        List<ShoppingCartData> result = new ArrayList<>();
+        for (ShoppingCartData item : items) {
+            if (selectedStores.contains(item.getStore())) {
+                result.add(item);
+            }
+        }
+        return result;
     }
 
     private void clearPriceFilter() {
-        adapter.updateList(new ArrayList<>(allItems)); // Assuming allItems is original unfiltered list
+        minPriceFilter = null;
+        maxPriceFilter = null;
+        priceFilterChip.setChecked(false);
+        applyAllFilters();
     }
 
     private void clearStoreFilter() {
-        adapter.updateList(new ArrayList<>(allItems));
+        selectedStoresFilter.clear();
+        storeFilterChip.setChecked(false);
+        applyAllFilters();
     }
 
     private void clearDistanceFilter() {
-        adapter.updateList(new ArrayList<>(allItems));
+        // Implement this when distance filtering is added
+        distFilterChip.setChecked(false);
+        applyAllFilters();
     }
+
+
 
 }
