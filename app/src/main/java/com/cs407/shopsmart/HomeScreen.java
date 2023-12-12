@@ -131,6 +131,18 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button trendingSeeAll = (Button)findViewById((R.id.seeAll));
+        trendingSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to start the SearchResultsScreen activity
+                Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
+
+                // Start the SearchResultsScreen activity with the intent
+                startActivity(intent);
+            }
+        });
     }
 
     private List<ShoppingCartData> createFakeData() {
