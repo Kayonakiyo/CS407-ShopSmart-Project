@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HomeLoginScreen">
 
+
     <ImageView
         android:id="@+id/ShopSmartLogoImage"
         android:layout_width="272dp"
@@ -13,9 +14,9 @@
         android:src="@drawable/smartshop_logo"
         app:layout_constraintBottom_toTopOf="@id/InteractableButtons"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <LinearLayout
         android:id="@+id/InteractableButtons"

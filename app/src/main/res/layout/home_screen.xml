@@ -3,24 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_green">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="116dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="98dp"
+    <ImageView
+        android:id="@+id/ShopSmartLogoImage"
+        android:layout_width="194dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/smartshop_logo"
         android:text="@string/shopsmart_text"
         android:textAlignment="center"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/searchItem"
-        android:layout_width="254dp"
-        android:layout_height="19dp"
+        android:layout_width="273dp"
+        android:layout_height="30dp"
         android:layout_margin="3dp"
         android:background="@drawable/search_box"
         android:drawableLeft="@drawable/search_icon"
@@ -31,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/ShopSmartLogoImage" />
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -42,7 +44,8 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/dark_green">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,6 +56,8 @@
                 android:id="@+id/trendingText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
                 android:text="Trending"
                 android:textAlignment="center" />
 
@@ -70,6 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
                 android:text="See all..." />
 
         </LinearLayout>
@@ -92,6 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Shop by Category"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
             android:textAlignment="center" />
 
         <androidx.gridlayout.widget.GridLayout
@@ -112,6 +121,8 @@
                 android:gravity="center"
                 android:text="Tech"
                 app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
 
             <Button
@@ -121,6 +132,8 @@
                 android:gravity="center"
                 android:text="Home"
                 app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
 
             <Button
@@ -130,6 +143,8 @@
                 android:gravity="center"
                 android:text="Toys"
                 app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
 
             <Button
@@ -139,6 +154,8 @@
                 android:gravity="center"
                 android:text="Stationary"
                 app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
 
             <Button
@@ -148,6 +165,8 @@
                 android:gravity="center"
                 android:text="Clothing"
                 app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
 
             <Button
@@ -157,6 +176,8 @@
                 android:gravity="center"
                 android:text="Shop All"
                 app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
         </androidx.gridlayout.widget.GridLayout>
     </LinearLayout>
