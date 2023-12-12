@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,8 +48,16 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getOnlineLink()));
             holder.itemView.getContext().startActivity(browserIntent);
         });
-    }
 
+        holder.deleteButton.setOnClickListener(v -> {
+            removeItem(position);
+        });
+    }
+    private void removeItem(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, items.size());
+    }
     @Override
     public int getItemCount() {
         return items.size();
@@ -60,6 +69,7 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
         TextView itemStore;
         ImageView itemImage;
         Button viewOnlineButton;
+        ImageButton deleteButton;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -68,6 +78,7 @@ public class SavedShoppingAdapter extends RecyclerView.Adapter<SavedShoppingAdap
             itemStore = itemView.findViewById(R.id.item_store);
             itemImage = itemView.findViewById(R.id.item_image);
             viewOnlineButton = itemView.findViewById(R.id.item_view_online_button);
+            deleteButton = itemView.findViewById(R.id.delete_button);
         }
     }
 }

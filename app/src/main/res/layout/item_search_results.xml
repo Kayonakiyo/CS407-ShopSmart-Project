@@ -49,10 +49,10 @@ android:padding="8dp">
     <ImageButton
         android:id="@+id/add_to_cart_button"
         android:layout_width="66dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_gravity="end"
         android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/button_border"
         android:src="@drawable/ic_shopping_cart" />
 
 </LinearLayout>
