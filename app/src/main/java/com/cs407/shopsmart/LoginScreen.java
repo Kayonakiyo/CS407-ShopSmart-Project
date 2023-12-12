@@ -72,7 +72,9 @@ public class LoginScreen extends AppCompatActivity {
             if(validPassword && validUsername){
                 startActivity(new Intent(this, HomeScreen.class));
             } else {
-                Toast.makeText(this, "Invalid login!", Toast.LENGTH_SHORT);
+                usernameField.setText("");
+                passwordField.setText("");
+                Toast.makeText(this, "Invalid login!", Toast.LENGTH_SHORT).show();
             }
         });
 
