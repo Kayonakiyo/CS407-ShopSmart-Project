@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MapScreen">
 
+    <fragment
+        android:id="@+id/fragment_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="589dp"
+        tools:layout_editor_absoluteX="0dp">
+        <!-- The name attribute represents the fragment is a MapFragment-->
+    </fragment>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
