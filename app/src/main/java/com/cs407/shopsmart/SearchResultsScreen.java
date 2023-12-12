@@ -1,5 +1,6 @@
 package com.cs407.shopsmart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -54,6 +55,12 @@ public class SearchResultsScreen extends AppCompatActivity {
                 return false;
             }
         });
+
+        Intent intent = getIntent();
+        String homeQuery = intent.getStringExtra("searchQuery");
+        if(homeQuery != null) {
+            performSearch(homeQuery);
+        }
     }
 
     private void performSearch(String query) {
