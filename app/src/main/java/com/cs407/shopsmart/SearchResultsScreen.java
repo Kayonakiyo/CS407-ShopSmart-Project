@@ -38,6 +38,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import android.content.Context;
+import android.view.inputmethod.InputMethodManager;
+
+
 public class SearchResultsScreen extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -76,14 +80,14 @@ public class SearchResultsScreen extends AppCompatActivity {
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     // Execute network operation in the executor
-                    executorService.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            performSearch(searchEditText.getText().toString());
-                        }
-                    });
+                    executorService.execute(() -> performSearch(searchEditText.getText().toString()));
+
+                    // Hide the keyboard after search
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
 
                     return true;
                 }
