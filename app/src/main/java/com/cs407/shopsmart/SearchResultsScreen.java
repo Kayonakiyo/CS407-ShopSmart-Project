@@ -83,12 +83,16 @@ public class SearchResultsScreen extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                         (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     // Execute network operation in the executor
-                    executorService.execute(() -> performSearch(searchEditText.getText().toString()));
+                    executorService.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            performSearch(searchEditText.getText().toString());
+                        }
+                    });
 
-                    // Hide the keyboard and clear focus from the EditText
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
-                    searchEditText.clearFocus(); // Clear focus to stop cursor blinking
+                    searchEditText.clearFocus();
 
                     return true;
                 }
@@ -96,11 +100,11 @@ public class SearchResultsScreen extends AppCompatActivity {
             }
         });
 
-
-
         Intent intent = getIntent();
         String homeQuery = intent.getStringExtra("searchQuery");
         if(homeQuery != null) {
+            searchEditText.setText(homeQuery);
+
             // Execute network operation in the executor
             executorService.execute(new Runnable() {
                 @Override
@@ -108,8 +112,8 @@ public class SearchResultsScreen extends AppCompatActivity {
                     performSearch(homeQuery);
                 }
             });
-
         }
+
         priceFilterChip = findViewById(R.id.priceFilterChip);
         storeFilterChip = findViewById(R.id.storeFilterChip);
         distFilterChip = findViewById(R.id.distFilterChip);
