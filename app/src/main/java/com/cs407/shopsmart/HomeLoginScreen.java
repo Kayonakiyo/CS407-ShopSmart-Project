@@ -29,7 +29,7 @@ public class HomeLoginScreen extends AppCompatActivity {
         // If user is logged in, direct them to the home screen instead.
         userSession = getSharedPreferences("userSession", MODE_PRIVATE);
         if(checkIfLoggedIn(userSession)){
-            //startActivity(this, ); [add when homes screen is available]
+            startActivity(new Intent(this, HomeScreen.class));
         }
 
         super.onCreate(savedInstanceState);

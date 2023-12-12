@@ -24,10 +24,10 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_shopping);
+        setContentView(R.layout.home_screen);
 
         // Initialize RecyclerView
-        trendingRecycler = findViewById(R.id.saved_items_recycler_view);
+        trendingRecycler = findViewById(R.id.trending_recycler_view);
         trendingRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize your adapter with fake data

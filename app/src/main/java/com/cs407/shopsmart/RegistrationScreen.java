@@ -110,7 +110,7 @@ public class RegistrationScreen extends AppCompatActivity {
         byte[] saltBytes = new byte[20];
         randomGen.nextBytes(saltBytes);
         SecretKey hashedPassword = null;
-        String encodedKeyAndSalt = "[";
+        String encodedKeyAndSalt = "";
         String saltString = Base64.getEncoder().encodeToString(saltBytes);
         try{
             hashedPassword = pbkdf2(password.toCharArray(), saltBytes, 4096, 256);
@@ -120,7 +120,7 @@ public class RegistrationScreen extends AppCompatActivity {
         } catch (InvalidKeySpecException e){
             e.printStackTrace();
         }
-        encodedKeyAndSalt += saltString + "]";
+        encodedKeyAndSalt += saltString + "";
         SharedPreferences.Editor editor = loginDatabase.edit();
         editor.putString(username, encodedKeyAndSalt); // save the hashed password and salt as an 'array', can be deserialized easily.
         editor.apply();
