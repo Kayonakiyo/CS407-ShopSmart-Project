@@ -1,5 +1,6 @@
 package com.cs407.shopsmart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -67,7 +69,7 @@ public class SearchResultsScreen extends AppCompatActivity {
         searchEditText = findViewById(R.id.searchItem);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        allItems = loadItemsFromJson(); // Load the data from JSON
+        //allItems = loadItemsFromJson(); // Load the data from JSON
         adapter = new SearchResultsAdapter(new ArrayList<>()); // Initialize with an empty list
         recyclerView.setAdapter(adapter);
 
@@ -169,7 +171,7 @@ public class SearchResultsScreen extends AppCompatActivity {
     }
 
     private void showStoreFilterDialog() {
-        final String[] stores = {"BestBuy", "Target", "Walmart", "Amazon", "UW Bookstore"};
+        final String[] stores = {"Best Buy", "Target", "Walmart", "Amazon", "UW Bookstore"};
         final boolean[] checkedStores = new boolean[stores.length];
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -255,6 +257,7 @@ public class SearchResultsScreen extends AppCompatActivity {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("query",query)
+                .addFormDataPart("stores","[\"Amazon\", \"Target\"]")
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.resolyth.dev")
@@ -277,7 +280,6 @@ public class SearchResultsScreen extends AppCompatActivity {
 
 
         for (ShoppingCartData item : queriedData) {
-        for (ShoppingCartData item : allItems) {
             if (item.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(item);
             }
@@ -294,7 +296,13 @@ public class SearchResultsScreen extends AppCompatActivity {
 
         // Update the allItems with search results and then apply all filters
         allItems = filteredList;
-        applyAllFilters();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                applyAllFilters();
+            }
+        });
     }
 
     private List<ShoppingCartData> loadItemsFromJson(String rawData) {
@@ -311,18 +319,37 @@ public class SearchResultsScreen extends AppCompatActivity {
     private void applyPriceFilter(double minPrice, double maxPrice) {
         minPriceFilter = minPrice;
         maxPriceFilter = maxPrice;
-        applyAllFilters();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                applyAllFilters();
+            }
+        });
     }
 
     private void applyStoreFilter(List<String> selectedStores) {
         selectedStoresFilter = selectedStores;
-        applyAllFilters();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                applyAllFilters();
+            }
+        });
     }
 
     // placeholder for the distance filter
     private void applyDistanceFilter(int distance) {
         // Update this method when distance filtering is done
-        applyAllFilters();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                applyAllFilters();
+            }
+        });
+
     }
 
     private void applyAllFilters() {
@@ -370,19 +397,37 @@ public class SearchResultsScreen extends AppCompatActivity {
         minPriceFilter = null;
         maxPriceFilter = null;
         priceFilterChip.setChecked(false);
-        applyAllFilters();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                applyAllFilters();
+            }
+        });
     }
 
     private void clearStoreFilter() {
         selectedStoresFilter.clear();
         storeFilterChip.setChecked(false);
-        applyAllFilters();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                applyAllFilters();
+            }
+        });
     }
 
     private void clearDistanceFilter() {
         // Implement this when distance filtering is added
         distFilterChip.setChecked(false);
-        applyAllFilters();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                applyAllFilters();
+            }
+        });
     }
 
 
