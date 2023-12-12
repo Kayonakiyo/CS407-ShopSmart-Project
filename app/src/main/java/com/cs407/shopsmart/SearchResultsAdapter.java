@@ -40,6 +40,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         ShoppingCartData currentItem = itemList.get(position);
+        holder.itemName.setText(currentItem.getName());
         holder.itemPrice.setText("$" + String.format("%.2f", currentItem.getPrice()));
         holder.itemStore.setText(currentItem.getStore());
 
@@ -102,6 +103,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        TextView itemName;
         TextView itemPrice;
         TextView itemStore;
         ImageView itemImage;
@@ -109,6 +111,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            itemName = itemView.findViewById(R.id.item_search_name);
             itemPrice = itemView.findViewById(R.id.item_search_price);
             itemStore = itemView.findViewById(R.id.item_search_store);
             itemImage = itemView.findViewById(R.id.item_search_image);

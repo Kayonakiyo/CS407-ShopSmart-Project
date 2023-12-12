@@ -23,10 +23,18 @@ android:padding="8dp">
     android:scaleType="centerCrop" />
 
 <TextView
+    android:id="@+id/item_search_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="16sp"
+    android:text="Item Name"
+    android:layout_marginTop="4dp" />
+
+<TextView
     android:id="@+id/item_search_price"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="2dp"
     android:textSize="14sp"
     android:text="Price" />
 
@@ -34,7 +42,8 @@ android:padding="8dp">
     android:id="@+id/item_search_store"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="12sp"
+    android:layout_marginTop="2dp"
+    android:textSize="14sp"
     android:text="Store" />
 
     <ImageButton
