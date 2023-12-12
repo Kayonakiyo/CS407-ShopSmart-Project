@@ -2,12 +2,15 @@ package com.cs407.shopsmart;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +24,17 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class SearchResultsScreen extends AppCompatActivity {
 
@@ -36,10 +50,18 @@ public class SearchResultsScreen extends AppCompatActivity {
     private Double maxPriceFilter = null;
     private List<String> selectedStoresFilter = new ArrayList<>();
 
+    private ExecutorService executorService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_results_screen);
+// Shows the nav arrow on top of screen
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        // Create a single-threaded ExecutorService
+        executorService = Executors.newSingleThreadExecutor();
 
         recyclerView = findViewById(R.id.recyclerViewSearchResults);
         searchEditText = findViewById(R.id.searchItem);
@@ -53,13 +75,32 @@ public class SearchResultsScreen extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    performSearch(searchEditText.getText().toString());
+                    // Execute network operation in the executor
+                    executorService.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            performSearch(searchEditText.getText().toString());
+                        }
+                    });
+
                     return true;
                 }
                 return false;
             }
         });
 
+        Intent intent = getIntent();
+        String homeQuery = intent.getStringExtra("searchQuery");
+        if(homeQuery != null) {
+            // Execute network operation in the executor
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    performSearch(homeQuery);
+                }
+            });
+
+        }
         priceFilterChip = findViewById(R.id.priceFilterChip);
         storeFilterChip = findViewById(R.id.storeFilterChip);
         distFilterChip = findViewById(R.id.distFilterChip);
@@ -185,26 +226,84 @@ public class SearchResultsScreen extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Deals with navigating back by one activity.
+     *
+     * @param item The menu item that was selected.
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        if (id == android.R.id.home){
+            navigateUpTo(new Intent(this, HomeLoginScreen.class));
+            return true;
+        }
+        return false;
+    }
+
     private void performSearch(String query) {
         List<ShoppingCartData> filteredList = new ArrayList<>();
+        ArrayList<ShoppingCartData> queriedData = new ArrayList<>();
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .connectTimeout(30, TimeUnit.SECONDS) // Adjust the connection timeout
+                .readTimeout(30, TimeUnit.SECONDS)    // Adjust the read timeout
+                .writeTimeout(30, TimeUnit.SECONDS)   // Adjust the write timeout
+                .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("query",query)
+                .build();
+        Request request = new Request.Builder()
+                .url("https://api.resolyth.dev")
+                .method("POST", body)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                queriedData = (ArrayList<ShoppingCartData>) loadItemsFromJson(responseData);
+            } else {
+                // Handle unsuccessful response here
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle IO exceptions here
+        }
+
+
+        for (ShoppingCartData item : queriedData) {
         for (ShoppingCartData item : allItems) {
             if (item.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(item);
             }
         }
+
+        // Update UI on the main thread using runOnUiThread
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update UI components here
+                adapter.updateList(filteredList);
+            }
+        });
+
         // Update the allItems with search results and then apply all filters
         allItems = filteredList;
         applyAllFilters();
     }
 
-    private List<ShoppingCartData> loadItemsFromJson() {
+    private List<ShoppingCartData> loadItemsFromJson(String rawData) {
         Gson gson = new Gson();
         Type itemListType = new TypeToken<ArrayList<ShoppingCartData>>(){}.getType();
         try {
-            InputStreamReader isr = new InputStreamReader(getAssets().open("UWBSData.json"));
-            return gson.fromJson(isr, itemListType);
-        } catch (IOException e) {
-            Toast.makeText(this, "Error loading JSON data: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            ArrayList<ShoppingCartData> data = gson.fromJson(rawData, itemListType);
+            return data;
+        } catch (JsonSyntaxException e) {
             return new ArrayList<>(); // Return an empty list if there's an error
         }
     }
