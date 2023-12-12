@@ -246,7 +246,7 @@ public class SearchResultsScreen extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home){
-            navigateUpTo(new Intent(this, HomeLoginScreen.class));
+            navigateUpTo(new Intent(this, HomeScreen.class));
             return true;
         }
         return false;
@@ -264,7 +264,7 @@ public class SearchResultsScreen extends AppCompatActivity {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("query",query)
-                .addFormDataPart("stores","[\"Amazon\", \"Target\"]")
+                .addFormDataPart("stores","[\"Amazon\", \"Target\", \"Best Buy\", \"UW Bookstore\"]")
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.resolyth.dev")

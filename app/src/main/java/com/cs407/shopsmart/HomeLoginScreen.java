@@ -43,6 +43,9 @@ public class HomeLoginScreen extends AppCompatActivity {
         debugSwtichToSearchResults = findViewById(R.id.switchtosearch);
         debugSwitchToHome = findViewById(R.id.switchtohome);
 
+        debugSwitchToSavedShopping.setVisibility(View.GONE);
+        debugSwitchToRegistrationShopSelection.setVisibility(View.GONE);
+        debugSwtichToSearchResults.setVisibility(View.GONE);
         // Add element onClick functions
         loginButton.setOnClickListener(v -> {
             Intent switchToLogin = new Intent(this, LoginScreen.class);
