@@ -180,6 +180,16 @@
                 android:backgroundTint="#C8C8C8"
                 android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Logout"
+                app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
+                app:layout_gravity="fill_horizontal" />
         </androidx.gridlayout.widget.GridLayout>
     </LinearLayout>
 
