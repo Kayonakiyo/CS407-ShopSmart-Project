@@ -28,12 +28,11 @@ import java.util.Map;
 
 public class MapScreen extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private static final int PERMISSSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
     private final LatLng mDestinationLatLng = new LatLng(43.0757339,-89.4065813);
     private GoogleMap mMap;
     private Map<String, LatLng> dict;
-
-    String store
+    private String store;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +58,14 @@ public class MapScreen extends AppCompatActivity {
         });
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
         displayMyLocation();
     }
 
     private void displayMyLocation() {
         int permission = ActivityCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
         if(permission == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         } else {
-
-
             mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(this, task -> {
                 Location mLastKnownLocation = task.getResult();
                 if(task.isSuccessful() && mLastKnownLocation != null){
@@ -88,7 +84,7 @@ public class MapScreen extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 displayMyLocation();
             }
