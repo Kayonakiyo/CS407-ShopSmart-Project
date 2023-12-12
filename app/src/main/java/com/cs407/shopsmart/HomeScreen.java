@@ -1,6 +1,7 @@
 package com.cs407.shopsmart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -19,12 +20,27 @@ public class HomeScreen extends AppCompatActivity {
 
     private RecyclerView trendingRecycler;
     private HomeScreenAdapter adapter;
+    Button logoutButton;
+    SharedPreferences userSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen); // Ensure this is the correct layout file
+        setContentView(R.layout.home_screen);
 
+        userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(v -> {
+            if(userSession.getBoolean("loggedIn", true)){
+                SharedPreferences.Editor editor = userSession.edit();
+                editor.putString("username", "Guest"); // default user.
+                editor.putBoolean("loggedIn", false); // log em out
+                editor.apply();
+            }
+            startActivity(new Intent(this, HomeLoginScreen.class)); // back to login screen
+        });
+        // Initialize RecyclerView
+        trendingRecycler = findViewById(R.id.trending_recycler_view);
         initializeRecyclerView();
         setupCategoryButtons();
     }
@@ -32,6 +48,8 @@ public class HomeScreen extends AppCompatActivity {
     private void initializeRecyclerView() {
         trendingRecycler = findViewById(R.id.trending_recycler_view);
         trendingRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize your adapter with fake data
         adapter = new HomeScreenAdapter(createFakeData());
         trendingRecycler.setAdapter(adapter);
 

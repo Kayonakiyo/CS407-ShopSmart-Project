@@ -5,29 +5,80 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.Map;
 
 public class LoginScreen extends AppCompatActivity {
 
     SharedPreferences loginDatabase;
     SecureRandom randomGen;
+    Button loginButton;
+    EditText usernameField;
+    EditText passwordField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
-
+        randomGen = new SecureRandom();
+        loginDatabase = getSharedPreferences("loginDatabase", MODE_PRIVATE);
         // Shows the nav arrow on top of screen
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        randomGen = new SecureRandom();
-        loginDatabase = getSharedPreferences("loginDatabase", MODE_PRIVATE);
+        loginButton = findViewById(R.id.buttonLogin);
+        usernameField = findViewById(R.id.editTextUsername);
+        passwordField = findViewById(R.id.editTextPassword);
+
+        loginButton.setOnClickListener(v -> {
+            boolean validUsername = false;
+            boolean validPassword = false;
+            String username = "";
+            String password = "";
+            SecretKey hashedPassword = null;
+            byte[] salt = null;
+            username = usernameField.getText().toString();
+            password = passwordField.getText().toString();
+            Map<String, ?> keyValues = loginDatabase.getAll();
+            for (Map.Entry<String, ?> keyValuePair : keyValues.entrySet()){
+                if(username.equals(keyValuePair.getKey().toString())){
+                    validUsername = true;
+                    // username entry is real, get salt
+                    salt = Base64.getDecoder().decode(keyValuePair.getValue().toString().split(",")[1]);
+                    // re-hash password and check the result
+                    try {
+                        hashedPassword = pbkdf2(password.toCharArray(), salt, 4096, 256);
+                        String decodedPassword = Base64.getEncoder().encodeToString(hashedPassword.getEncoded());
+                        if(decodedPassword.equals(keyValuePair.getValue().toString().split(",")[0])){
+                            validPassword = true;
+                        }
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvalidKeySpecException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            if(validPassword && validUsername){
+                startActivity(new Intent(this, HomeScreen.class));
+            } else {
+                usernameField.setText("");
+                passwordField.setText("");
+                Toast.makeText(this, "Invalid login!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     /**
