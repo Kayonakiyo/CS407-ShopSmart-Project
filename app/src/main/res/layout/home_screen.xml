@@ -58,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="Trending"
                 android:textAlignment="center" />
 
@@ -100,6 +101,7 @@
             android:layout_height="wrap_content"
             android:text="Shop by Category"
             android:textStyle="bold"
+            android:textSize="18dp"
             android:textColor="@android:color/black"
             android:textAlignment="center" />
 
