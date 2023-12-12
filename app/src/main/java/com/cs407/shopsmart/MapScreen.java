@@ -23,15 +23,27 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MapScreen extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final int PERMISSSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
     private final LatLng mDestinationLatLng = new LatLng(43.0757339,-89.4065813);
     private GoogleMap mMap;
+    private Map<String, LatLng> dict
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_screen);
+
+        dict = new HashMap<>();
+
+        // Add keys and their corresponding values
+        dict.put("Target", new LatLng(1, 1));
+        dict.put("Amazon", new LatLng(2, 2));
+        dict.put("Walmart", new LatLng(3, 3));
+        dict.put("Best Buy", new LatLng(4, 4));
 
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_map);
