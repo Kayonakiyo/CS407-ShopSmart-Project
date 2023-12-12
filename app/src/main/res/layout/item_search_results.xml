@@ -36,5 +36,15 @@ android:padding="8dp">
     android:layout_height="wrap_content"
     android:textSize="12sp"
     android:text="Store" />
+
+    <ImageButton
+        android:id="@+id/add_to_cart_button"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/ic_shopping_cart" />
+
 </LinearLayout>
     </androidx.cardview.widget.CardView>

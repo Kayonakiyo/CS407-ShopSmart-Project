@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
-        app:layout_constraintTop_toBottomOf="@id/ShopSmartLogoImage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/fourFifthVert"
         app:layout_constraintStart_toStartOf="@id/oneFifthVert"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/ShopSmartLogoImage">
 
         <Button
             android:id="@+id/LoginButton"
@@ -60,19 +60,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="saved shopping"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="576dp" />
+        tools:layout_editor_absoluteX="126dp"
+        tools:layout_editor_absoluteY="394dp"
+        app:layout_constraintBottom_toTopOf="@id/ShopSmartLogoImage"
+
+        />
 
     <Button
         android:id="@+id/switchtosearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="search results"
-        app:layout_constraintTop_toBottomOf="@id/ShopSmartLogoImage"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-      />
+        app:layout_constraintTop_toBottomOf="@id/ShopSmartLogoImage" />
 
     <Button
         android:id="@+id/switchtoshopselection"

@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -47,6 +50,11 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         holder.itemView.setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentItem.getOnlineLink()));
             v.getContext().startActivity(browserIntent);
+        });
+
+        holder.addToCartButton.setOnClickListener(v -> {
+            SavedItemsManager.getInstance().addSavedItem(currentItem);
+            Toast.makeText(holder.itemView.getContext(), "Added to saved items", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -97,12 +105,14 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         TextView itemPrice;
         TextView itemStore;
         ImageView itemImage;
+        ImageButton addToCartButton;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             itemPrice = itemView.findViewById(R.id.item_search_price);
             itemStore = itemView.findViewById(R.id.item_search_store);
             itemImage = itemView.findViewById(R.id.item_search_image);
+            addToCartButton = itemView.findViewById(R.id.add_to_cart_button);
         }
     }
 }
