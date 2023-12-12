@@ -61,11 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="saved shopping"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="394dp"
         app:layout_constraintBottom_toTopOf="@id/ShopSmartLogoImage"
-
-        />
+        tools:layout_editor_absoluteX="126dp"
+        tools:layout_editor_absoluteY="394dp" />
 
     <Button
         android:id="@+id/switchtosearch"
@@ -84,6 +82,14 @@
         android:text="shop selection debug"
         tools:layout_editor_absoluteX="121dp"
         tools:layout_editor_absoluteY="68dp" />
+
+    <Button
+        android:id="@+id/switchtohome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="homescreen debug"
+        tools:layout_editor_absoluteX="126dp"
+        tools:layout_editor_absoluteY="645dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

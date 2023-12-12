@@ -59,13 +59,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="Trending"
                 android:textAlignment="center" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trending_recycler_view"
-                android:layout_width="350dp"
-                android:layout_height="170dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +102,7 @@
             android:layout_height="wrap_content"
             android:text="Shop by Category"
             android:textStyle="bold"
+            android:textSize="18dp"
             android:textColor="@android:color/black"
             android:textAlignment="center" />
 
@@ -187,7 +189,7 @@
                 android:gravity="center"
                 android:text="Logout"
                 app:layout_columnWeight="1"
-                android:backgroundTint="#C8C8C8"
+                android:backgroundTint="#d6b02e"
                 android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
             <Button
@@ -197,7 +199,7 @@
                 android:gravity="center"
                 android:text="Cart"
                 app:layout_columnWeight="1"
-                android:backgroundTint="#C8C8C8"
+                android:backgroundTint="#d6b02e"
                 android:textColor="#000000"
                 app:layout_gravity="fill_horizontal" />
         </androidx.gridlayout.widget.GridLayout>

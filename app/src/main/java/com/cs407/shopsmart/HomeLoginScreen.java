@@ -19,9 +19,8 @@ public class HomeLoginScreen extends AppCompatActivity {
     Button createAccountButton;
     Button debugSwitchToSavedShopping;
     Button debugSwtichToSearchResults;
-
     Button debugSwitchToRegistrationShopSelection;
-
+    Button debugSwitchToHome;
     // SharedPreferences
     SharedPreferences userSession;
 
@@ -42,6 +41,7 @@ public class HomeLoginScreen extends AppCompatActivity {
         debugSwitchToSavedShopping = findViewById(R.id.switchtosaved);
         debugSwitchToRegistrationShopSelection = findViewById(R.id.switchtoshopselection);
         debugSwtichToSearchResults = findViewById(R.id.switchtosearch);
+        debugSwitchToHome = findViewById(R.id.switchtohome);
 
         debugSwitchToSavedShopping.setVisibility(View.GONE);
         debugSwitchToRegistrationShopSelection.setVisibility(View.GONE);
@@ -70,6 +70,11 @@ public class HomeLoginScreen extends AppCompatActivity {
         debugSwtichToSearchResults.setOnClickListener(v -> {
             Intent switchToSearch = new Intent(this, SearchResultsScreen.class);
             startActivity(switchToSearch);
+        });
+
+        debugSwitchToHome.setOnClickListener(v -> {
+            Intent switchToHome = new Intent(this, HomeScreen.class);
+            startActivity(switchToHome);
         });
     }
 

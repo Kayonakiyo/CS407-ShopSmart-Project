@@ -85,15 +85,18 @@ public class SearchResultsScreen extends AppCompatActivity {
                     // Execute network operation in the executor
                     executorService.execute(() -> performSearch(searchEditText.getText().toString()));
 
-                    // Hide the keyboard after search
+                    // Hide the keyboard and clear focus from the EditText
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+                    searchEditText.clearFocus(); // Clear focus to stop cursor blinking
 
                     return true;
                 }
                 return false;
             }
         });
+
+
 
         Intent intent = getIntent();
         String homeQuery = intent.getStringExtra("searchQuery");

@@ -42,6 +42,8 @@
             android:exported="false" />
         <activity android:name=".SearchResultsScreen"
             android:exported="false"/>
+        <activity android:name=".HomeScreen"
+            android:exported="false"/>
         <activity
             android:name=".HomeLoginScreen"
             android:exported="true">
