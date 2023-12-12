@@ -22,6 +22,7 @@ public class HomeScreen extends AppCompatActivity {
 
     private HomeScreenAdapter adapter;
     Button logoutButton;
+    Button cartButton;
     SharedPreferences userSession;
 
     @Override
@@ -30,6 +31,11 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.home_screen);
 
         userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+        cartButton = findViewById(R.id.cartButton);
+        cartButton.setOnClickListener(v -> {
+            Intent switchToSavedShopping = new Intent(this, SavedShopping.class);
+            startActivity(switchToSavedShopping);
+        });
         logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(v -> {
             if(userSession.getBoolean("loggedIn", true)){

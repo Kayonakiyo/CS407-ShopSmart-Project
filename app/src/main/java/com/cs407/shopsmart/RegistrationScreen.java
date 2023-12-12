@@ -29,11 +29,14 @@ public class RegistrationScreen extends AppCompatActivity {
     Button registerButton;
     SharedPreferences loginDatabase;
     SharedPreferences userSession; // holds who is logged in right now
+    SharedPreferences userPreferneces; // holds what stores they opt-into by default.
     SecureRandom randomGen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_screen);
+
+        userPreferneces = getSharedPreferences("userPreferences", MODE_PRIVATE);
 
         // Shows the nav arrow on top of screen
         ActionBar actionBar = getSupportActionBar();
@@ -50,8 +53,8 @@ public class RegistrationScreen extends AppCompatActivity {
 
         registerButton.setOnClickListener(v -> {
             if(handleRegistration(username.getText().toString(), password.getText().toString(), confirmPassword.getText().toString(), password, confirmPassword)){
-                Toast.makeText(this, "Successfully registered user! You may log in now.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, RegistrationShopSelection.class));
+                Toast.makeText(this, "Successfully registered user!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, HomeScreen.class));
             }
         });
 
@@ -129,6 +132,11 @@ public class RegistrationScreen extends AppCompatActivity {
         editor = userSession.edit();
         editor.putString("username", username);
         editor.putBoolean("loggedIn", true);
+        editor.apply();
+
+        // Add them and some default data for store preferences.
+        editor = userPreferneces.edit();
+        editor.putString(username, "Target,Amazon,Best Buy,UW Bookstore,Walmart");
         editor.apply();
 
         return true;

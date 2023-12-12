@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 /**
@@ -42,6 +43,9 @@ public class HomeLoginScreen extends AppCompatActivity {
         debugSwitchToRegistrationShopSelection = findViewById(R.id.switchtoshopselection);
         debugSwtichToSearchResults = findViewById(R.id.switchtosearch);
 
+        debugSwitchToSavedShopping.setVisibility(View.GONE);
+        debugSwitchToRegistrationShopSelection.setVisibility(View.GONE);
+        debugSwtichToSearchResults.setVisibility(View.GONE);
         // Add element onClick functions
         loginButton.setOnClickListener(v -> {
             Intent switchToLogin = new Intent(this, LoginScreen.class);

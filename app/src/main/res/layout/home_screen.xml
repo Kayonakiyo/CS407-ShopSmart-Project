@@ -64,8 +64,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trending_recycler_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="350dp"
+                android:layout_height="170dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
                 android:layout_alignParentBottom="true"
                 android:backgroundTint="#C8C8C8"
                 android:textColor="#000000"
-                android:text="See all..." />
+                android:text="Search for an item!" />
 
         </LinearLayout>
 
@@ -186,6 +186,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Logout"
+                app:layout_columnWeight="1"
+                android:backgroundTint="#C8C8C8"
+                android:textColor="#000000"
+                app:layout_gravity="fill_horizontal" />
+            <Button
+                android:id="@+id/cartButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Cart"
                 app:layout_columnWeight="1"
                 android:backgroundTint="#C8C8C8"
                 android:textColor="#000000"
