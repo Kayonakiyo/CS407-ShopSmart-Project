@@ -21,6 +21,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+/**
+ * Activity for user registration, allowing users to create an account with a unique username and password.
+ */
 public class RegistrationScreen extends AppCompatActivity {
 
     EditText username;
@@ -31,6 +34,14 @@ public class RegistrationScreen extends AppCompatActivity {
     SharedPreferences userSession; // holds who is logged in right now
     SharedPreferences userPreferneces; // holds what stores they opt-into by default.
     SecureRandom randomGen;
+
+    /**
+     * Initializes the registration screen and sets up UI elements and click listeners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down, this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +89,16 @@ public class RegistrationScreen extends AppCompatActivity {
         return false;
     }
 
-
-
+    /**
+     * Handles user registration by validating input, checking for existing usernames, and storing user data securely.
+     *
+     * @param username        The chosen username.
+     * @param password        The chosen password.
+     * @param confirmPassword The confirmation of the chosen password.
+     * @param passwordField   The EditText field for the password.
+     * @param repPasswordField The EditText field for the repeated password.
+     * @return True if registration is successful, false otherwise.
+     */
     private boolean handleRegistration(String username, String password, String confirmPassword, EditText passwordField, EditText repPasswordField){
         if(username == null || username.trim().length() == 0){
             Toast.makeText(this, "Please fill in the username field!", Toast.LENGTH_SHORT).show();

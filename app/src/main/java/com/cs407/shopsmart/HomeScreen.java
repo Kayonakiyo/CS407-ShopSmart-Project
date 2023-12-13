@@ -16,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the home screen of the ShopSmart app where users can navigate through trending items,
+ * access their shopping cart, set preferred shops, and log out.
+ */
 public class HomeScreen extends AppCompatActivity {
 
     private RecyclerView trendingRecycler;
@@ -26,12 +30,23 @@ public class HomeScreen extends AppCompatActivity {
     Button setShopsButton;
     SharedPreferences userSession;
 
+    /**
+     * Called when the activity is first created. Initializes the user interface,
+     * buttons, SharedPreferences for user session, and sets click listeners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down, this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
+        // Initialize SharedPreferences for user session
         userSession = getSharedPreferences("userSession", MODE_PRIVATE);
+
+        // Initialize buttons and set click listeners
         cartButton = findViewById(R.id.cartButton);
         cartButton.setOnClickListener(v -> {
             Intent switchToSavedShopping = new Intent(this, SavedShopping.class);
@@ -47,6 +62,7 @@ public class HomeScreen extends AppCompatActivity {
 
         logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(v -> {
+            // Log out the user and switch to the login screen
             if(userSession.getBoolean("loggedIn", true)){
                 SharedPreferences.Editor editor = userSession.edit();
                 editor.putString("username", "Guest"); // default user.
@@ -55,14 +71,22 @@ public class HomeScreen extends AppCompatActivity {
             }
             startActivity(new Intent(this, HomeLoginScreen.class)); // back to login screen
         });
+
         // Initialize RecyclerView
         trendingRecycler = findViewById(R.id.trending_recycler_view);
         initializeRecyclerView();
         setupCategoryButtons();
     }
 
+    /**
+     * Initializes the RecyclerView for trending items, sets its layout manager,
+     * and adds a divider decoration.
+     */
     private void initializeRecyclerView() {
+        // Find the RecyclerView in the layout by its ID
         trendingRecycler = findViewById(R.id.trending_recycler_view);
+
+        // Set the layout manager for the RecyclerView (Linear for a vertical list)
         trendingRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize your adapter with fake data
@@ -76,6 +100,12 @@ public class HomeScreen extends AppCompatActivity {
         trendingRecycler.addItemDecoration(dividerItemDecoration);
     }
 
+    /**
+     * Sets up click listeners for category buttons in the home screen.
+     * Each button is associated with a specific category, and clicking
+     * on a button navigates to the SearchResultsScreen with the corresponding
+     * category query.
+     */
     private void setupCategoryButtons() {
         setupButtonClickListener(R.id.techButton, "Tech");
         setupButtonClickListener(R.id.homeButton, "Home");
@@ -86,11 +116,18 @@ public class HomeScreen extends AppCompatActivity {
         setupSeeAllButtonListener(R.id.seeAll);
     }
 
+    /**
+     * Sets up a click listener for a specific button identified by its ID.
+     *
+     * @param buttonId The resource ID of the button to set up the click listener for.
+     * @param query The search query associated with the button.
+     */
     private void setupButtonClickListener(int buttonId, String query) {
         Button button = findViewById(buttonId);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Start the SearchResultsScreen with the specified search query
                 Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
                 intent.putExtra("searchQuery", query);
                 startActivity(intent);
@@ -98,15 +135,27 @@ public class HomeScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up a click listener for the "See All" button identified by its ID.
+     *
+     * @param buttonId The resource ID of the "See All" button to set up the click listener for.
+     */
     private void setupSeeAllButtonListener(int buttonId) {
         Button button = findViewById(buttonId);
         button.setOnClickListener(v -> {
+            // Start the SearchResultsScreen without a specific search query (for "See All")
             Intent intent = new Intent(HomeScreen.this, SearchResultsScreen.class);
             startActivity(intent);
         });
     }
 
+    /**
+     * Creates a list of fake shopping cart data for use in the trending items RecyclerView.
+     *
+     * @return List of ShoppingCartData objects representing placeholder shopping cart items.
+     */
     private List<ShoppingCartData> createFakeData() {
+        // Create fake data for the trending items
         List<ShoppingCartData> items = new ArrayList<>();
         items.add(new ShoppingCartData(
                 "Apple - 10.2-Inch iPad (9th Generation) with Wi-Fi - 64GB - Space Gray",
@@ -127,5 +176,4 @@ public class HomeScreen extends AppCompatActivity {
                 "https://target.scene7.com/is/image/Target/GUEST_50d6171b-266c-4904-8cd8-d27881569b20?wid=1200&hei=1200&qlt=80&fmt=webp"));
         return items;
     }
-
 }

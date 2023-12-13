@@ -24,6 +24,15 @@ public class HomeLoginScreen extends AppCompatActivity {
     // SharedPreferences
     SharedPreferences userSession;
 
+    /**
+     * Called when the HomeLoginScreen activity is first created. Checks if the user is already
+     * logged in. If logged in, redirects the user to the HomeScreen. Otherwise, initializes the
+     * user interface elements, such as login and create account buttons, and sets their click listeners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down, this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // If user is logged in, direct them to the home screen instead.
@@ -80,10 +89,10 @@ public class HomeLoginScreen extends AppCompatActivity {
     }
 
     /**
-     * Checks if a user is currently logged in.
+     * Checks if the user is logged in based on the information stored in SharedPreferences.
      *
-     * @param userSession the database that holds session data.
-     * @return false if not logged in, true if logged in
+     * @param userSession SharedPreferences instance for user session.
+     * @return True if the user is logged in; false otherwise.
      */
     private boolean checkIfLoggedIn(SharedPreferences userSession){
         // Upon app startup, check if userSession is true or false, if uninitialized, set to false.

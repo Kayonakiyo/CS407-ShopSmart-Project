@@ -27,6 +27,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * MapScreen Activity displays a Google Map with routes from the user's location to selected stores.
+ * It utilizes the FusedLocationProviderClient to obtain the user's current location and Google Maps API
+ * for displaying the map and routes. Store locations and names are passed through an Intent from the
+ * calling activity.
+ */
 public class MapScreen extends FragmentActivity {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
@@ -34,6 +40,15 @@ public class MapScreen extends FragmentActivity {
     private GoogleMap mMap;
     private Map<String, LatLng> dict;
     private ArrayList<String> stores;
+
+    /**
+     * Called when the activity is first created. Initializes the map, location services, and displays
+     * routes from the user's location to selected stores.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down, this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +78,9 @@ public class MapScreen extends FragmentActivity {
         displayMyLocation();
     }
 
+    /**
+     * Displays the user's current location and draws routes from the user's location to selected stores.
+     */
     private void displayMyLocation() {
         int permission = ActivityCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
         if(permission == PackageManager.PERMISSION_DENIED) {
@@ -87,6 +105,15 @@ public class MapScreen extends FragmentActivity {
         }
     }
 
+    /**
+     * Callback for the result from requesting permissions. Handles the result of the request for location
+     * permissions and calls displayMyLocation() if permissions are granted.
+     *
+     * @param requestCode  The request code passed in requestPermissions(android.app.Activity, String[], int).
+     * @param permissions  The requested permissions.
+     * @param grantResults The grant results for the corresponding permissions which is either PERMISSION_GRANTED
+     *                     or PERMISSION_DENIED. Never null.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -101,7 +128,7 @@ public class MapScreen extends FragmentActivity {
      * Deals with navigating back by one activity.
      *
      * @param item The menu item that was selected.
-     * @return
+     * @return Returns true if the navigation was handled, false otherwise.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

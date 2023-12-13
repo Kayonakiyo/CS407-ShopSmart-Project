@@ -20,8 +20,13 @@ import java.util.Map;
 
 public class LoginScreen extends AppCompatActivity {
 
+    // SharedPreferences for storing login information
     SharedPreferences loginDatabase;
+
+    // SecureRandom for generating random values
     SecureRandom randomGen;
+
+    // UI components
     Button loginButton;
     EditText usernameField;
     EditText passwordField;
@@ -30,16 +35,21 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+
+        // Initialize SecureRandom and SharedPreferences
         randomGen = new SecureRandom();
         loginDatabase = getSharedPreferences("loginDatabase", MODE_PRIVATE);
+
         // Shows the nav arrow on top of screen
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // Initialize UI components
         loginButton = findViewById(R.id.buttonLogin);
         usernameField = findViewById(R.id.editTextUsername);
         passwordField = findViewById(R.id.editTextPassword);
 
+        // Set click listener for the login button
         loginButton.setOnClickListener(v -> {
             boolean validUsername = false;
             boolean validPassword = false;
@@ -47,8 +57,11 @@ public class LoginScreen extends AppCompatActivity {
             String password = "";
             SecretKey hashedPassword = null;
             byte[] salt = null;
+
+            // Get username and password from input fields
             username = usernameField.getText().toString();
             password = passwordField.getText().toString();
+            // Iterate over stored usernames and check for a match
             Map<String, ?> keyValues = loginDatabase.getAll();
             for (Map.Entry<String, ?> keyValuePair : keyValues.entrySet()){
                 if(username.equals(keyValuePair.getKey().toString())){
@@ -69,9 +82,12 @@ public class LoginScreen extends AppCompatActivity {
                     }
                 }
             }
+            // Check if both username and password are valid
             if(validPassword && validUsername){
+                // If valid, navigate to HomeScreen activity
                 startActivity(new Intent(this, HomeScreen.class));
             } else {
+                // If invalid, clear input fields and show a toast message
                 usernameField.setText("");
                 passwordField.setText("");
                 Toast.makeText(this, "Invalid login!", Toast.LENGTH_SHORT).show();
