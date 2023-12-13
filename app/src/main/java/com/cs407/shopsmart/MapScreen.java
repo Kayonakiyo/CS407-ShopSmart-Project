@@ -45,10 +45,11 @@ public class MapScreen extends AppCompatActivity {
 
         // Add keys and their latitudes and longitudes
         // TODO: Replace with the actual lats and longs of the nearest stores
-        dict.put("Target", new LatLng(1, 1));
-        dict.put("Amazon", new LatLng(2, 2));
-        dict.put("Walmart", new LatLng(3, 3));
-        dict.put("Best Buy", new LatLng(4, 4));
+        dict.put("Target", new LatLng(43.07491687419081, -89.45381764915044));
+        dict.put("Amazon", new LatLng(43.072212858259995, -89.3973934663626)); // Sellery Locker/Hub
+        dict.put("Walmart", new LatLng(43.04524903786975, -89.34883935820928));
+        dict.put("Best Buy", new LatLng(43.06459252506946, -89.48360233689839));
+        dict.put("UW Bookstore", new LatLng(43.07783251035348, -89.39817077385179)); // State Street
 
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_map);
