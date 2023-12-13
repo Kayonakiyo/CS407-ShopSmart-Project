@@ -7,13 +7,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/myCardView"
-        android:layout_width="wrap_content"
+        android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardBackgroundColor="#CDEAC0"
         app:cardCornerRadius="15dp"
         app:cardElevation="4dp"
-        app:layout_constraintWidth_percent="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,9 +36,10 @@
                 android:id="@+id/storeNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
+                android:fontFamily="@font/inter_extrabold"
                 android:text="Store Name"
                 android:textColor="@android:color/black"
-                android:textSize="40sp" />
+                android:textSize="35sp" />
 
         </LinearLayout>
 

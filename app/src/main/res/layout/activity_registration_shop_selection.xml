@@ -6,8 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".RegistrationShopSelection">
 
+    <TextView
+        android:id="@+id/selectShopTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_extrabold"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="Customize your Shopping Experience:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.085" />
+
     <com.cs407.shopsmart.StoreCardView
         android:id="@+id/bookstoreStoreCardView"
+        android:fontFamily="@font/inter_extrabold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -20,6 +36,7 @@
 
     <com.cs407.shopsmart.StoreCardView
         android:id="@+id/amazonStoreCardView"
+        android:fontFamily="@font/inter_extrabold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -33,6 +50,7 @@
 
     <com.cs407.shopsmart.StoreCardView
         android:id="@+id/targetStoreCardView"
+        android:fontFamily="@font/inter_extrabold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -45,6 +63,7 @@
 
     <com.cs407.shopsmart.StoreCardView
         android:id="@+id/bbStoreCardView"
+        android:fontFamily="@font/inter_extrabold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -57,6 +76,7 @@
 
     <com.cs407.shopsmart.StoreCardView
         android:id="@+id/walmartStoreCardView"
+        android:fontFamily="@font/inter_extrabold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
