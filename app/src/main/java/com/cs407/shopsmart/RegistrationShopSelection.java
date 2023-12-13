@@ -13,6 +13,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Activity for selecting preferred stores during user registration.
+ * Allows users to choose their preferred stores by interacting with StoreCardView elements.
+ */
 public class RegistrationShopSelection extends AppCompatActivity {
 
     SharedPreferences userPreferences;
@@ -20,6 +24,13 @@ public class RegistrationShopSelection extends AppCompatActivity {
 
     Button storeSelectButton;
 
+    /**
+     * Initializes the shop selection screen and sets up UI elements and click listeners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously
+     *                           being shut down, this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +107,12 @@ public class RegistrationShopSelection extends AppCompatActivity {
         // have a single button to apply all changes
     }
 
+    /**
+     * Handles navigating back to the previous activity.
+     *
+     * @param item The menu item that was selected.
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();

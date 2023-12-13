@@ -15,15 +15,30 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+/**
+ * Adapter class for managing and displaying trending items in the HomeScreen's RecyclerView.
+ * Uses the ViewHolder pattern for efficient view recycling.
+ */
 public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.ViewHolder> {
     private List<ShoppingCartData> trendingItems;
 
-    // Constructor
+    /**
+     * Constructor for HomeScreenAdapter.
+     *
+     * @param items List of ShoppingCartData representing trending items.
+     */
     public HomeScreenAdapter(List<ShoppingCartData> items)
     {
         this.trendingItems = items;
     }
 
+    /**
+     * Creates a new ViewHolder by inflating the item layout.
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to an adapter position.
+     * @param viewType The type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -31,6 +46,12 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.Vi
         return new ViewHolder(view);
     }
 
+    /**
+     * Binds data to the ViewHolder and sets up click listeners.
+     *
+     * @param holder   The ViewHolder to bind data to.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(HomeScreenAdapter.ViewHolder holder, int position) {
         ShoppingCartData item = trendingItems.get(position);
@@ -49,11 +70,19 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.Vi
         });
     }
 
+    /**
+     * Gets the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items.
+     */
     @Override
     public int getItemCount() {
         return trendingItems.size();
     }
 
+    /**
+     * ViewHolder class for efficient view recycling.
+     */
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemName;
         TextView itemPrice;
