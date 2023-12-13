@@ -18,7 +18,7 @@ public class HomeLoginScreen extends AppCompatActivity {
     Button loginButton;
     Button createAccountButton;
     Button debugSwitchToSavedShopping;
-    Button debugSwtichToSearchResults;
+    Button debugSwitchToMap;
     Button debugSwitchToRegistrationShopSelection;
     Button debugSwitchToHome;
     // SharedPreferences
@@ -40,12 +40,13 @@ public class HomeLoginScreen extends AppCompatActivity {
         createAccountButton = findViewById(R.id.CreateAccountButton);
         debugSwitchToSavedShopping = findViewById(R.id.switchtosaved);
         debugSwitchToRegistrationShopSelection = findViewById(R.id.switchtoshopselection);
-        debugSwtichToSearchResults = findViewById(R.id.switchtosearch);
+        debugSwitchToMap = findViewById(R.id.switchtosearch);
         debugSwitchToHome = findViewById(R.id.switchtohome);
 
         debugSwitchToSavedShopping.setVisibility(View.GONE);
 
-        debugSwtichToSearchResults.setVisibility(View.GONE);
+        debugSwitchToMap.setVisibility(View.VISIBLE);
+
         // Add element onClick functions
         loginButton.setOnClickListener(v -> {
             Intent switchToLogin = new Intent(this, LoginScreen.class);
@@ -67,8 +68,8 @@ public class HomeLoginScreen extends AppCompatActivity {
             startActivity(switchtoshopselection);
         });
 
-        debugSwtichToSearchResults.setOnClickListener(v -> {
-            Intent switchToSearch = new Intent(this, SearchResultsScreen.class);
+        debugSwitchToMap.setOnClickListener(v -> {
+            Intent switchToSearch = new Intent(this, MapScreen.class);
             startActivity(switchToSearch);
         });
 
