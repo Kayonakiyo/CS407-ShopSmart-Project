@@ -273,7 +273,7 @@ public class SearchResultsScreen extends AppCompatActivity {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("query",query)
-                .addFormDataPart("stores","[\"Amazon\", \"Target\", \"Best Buy\", \"UW Bookstore\"]")
+                .addFormDataPart("stores","[\"Amazon\", \"Best Buy\", \"UW Bookstore\"]")
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.resolyth.dev")
@@ -361,7 +361,7 @@ public class SearchResultsScreen extends AppCompatActivity {
         for (String key : jsonObject.keySet()) {
             JsonElement value = jsonObject.get(key);
 
-            if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
+            if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString() && key.equals("price")) {
                 String stringValue = value.getAsString();
                 if (stringValue.contains(",")) {
                     String updatedValue = stringValue.replace(",", "");
