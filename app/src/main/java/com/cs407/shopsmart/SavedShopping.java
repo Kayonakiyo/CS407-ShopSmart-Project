@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,12 +21,27 @@ public class SavedShopping extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SavedShoppingAdapter adapter;
     private ArrayList<ShoppingCartData> savedItems;
+    private Button goToMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_shopping);
 
+        goToMap = findViewById(R.id.mapButton);
+        goToMap.setOnClickListener(v -> {
+            Intent mapIntent = new Intent(getApplicationContext(), MapScreen.class);
+            ArrayList<String> uniqueStores = new ArrayList<>();
+
+            for(ShoppingCartData item : savedItems){
+                if(!uniqueStores.contains(item.getStore())){
+                    uniqueStores.add(item.getStore());
+                }
+            }
+
+            mapIntent.putStringArrayListExtra("stores", uniqueStores);
+            startActivity(mapIntent);
+        });
         recyclerView = findViewById(R.id.saved_items_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 // Shows the nav arrow on top of screen

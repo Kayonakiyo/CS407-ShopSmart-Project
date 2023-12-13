@@ -23,23 +23,24 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapScreen extends AppCompatActivity {
+public class MapScreen extends FragmentActivity {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
     private final LatLng mDestinationLatLng = new LatLng(43.0757339,-89.4065813);
     private GoogleMap mMap;
     private Map<String, LatLng> dict;
-    private String store;
+    private ArrayList<String> stores;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_screen);
 
         Intent intent = getIntent();
-        store = intent.getStringExtra("storeName");
+        stores = intent.getStringArrayListExtra("stores");
 
         dict = new HashMap<>();
 
@@ -69,9 +70,13 @@ public class MapScreen extends AppCompatActivity {
         } else {
             mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(this, task -> {
                 Location mLastKnownLocation = task.getResult();
-                if(task.isSuccessful() && mLastKnownLocation != null){
-                    mMap.addPolyline(new PolylineOptions().add(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), dict.get(store)));
+
+                for(String store: stores){
+                    if(task.isSuccessful() && mLastKnownLocation != null){
+                        mMap.addPolyline(new PolylineOptions().add(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), dict.get(store)));
+                    }
                 }
+
                 SupportMapFragment mapFragment = (SupportMapFragment)
                         getSupportFragmentManager().findFragmentById(R.id.fragment_map);
                 mapFragment.getMapAsync(googleMap -> {
