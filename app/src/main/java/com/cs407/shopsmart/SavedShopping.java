@@ -38,6 +38,10 @@ public class SavedShopping extends AppCompatActivity {
                     uniqueStores.add(item.getStore());
                 }
             }
+            if(uniqueStores.size() == 0){
+                Toast.makeText(getApplicationContext(), "Need items to see map!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             mapIntent.putStringArrayListExtra("stores", uniqueStores);
             startActivity(mapIntent);
