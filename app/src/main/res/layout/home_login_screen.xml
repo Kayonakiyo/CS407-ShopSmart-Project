@@ -31,14 +31,22 @@
 
         <Button
             android:id="@+id/LoginButton"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_extrabold"
+            android:radius="2dp"
+            android:gravity="center"
+            android:backgroundTint="#9FC685"
             android:text="@string/loginText" />
 
         <Button
             android:id="@+id/CreateAccountButton"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_extrabold"
+            android:radius="2dp"
+            android:gravity="center"
+            android:backgroundTint="#9FC685"
             android:text="@string/create_account_text" />
     </LinearLayout>
 
@@ -62,8 +70,11 @@
         android:layout_height="wrap_content"
         android:text="saved shopping"
         app:layout_constraintBottom_toTopOf="@id/ShopSmartLogoImage"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="394dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.808" />
 
     <Button
         android:id="@+id/switchtosearch"
@@ -91,8 +102,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="homescreen debug"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="645dp" />
+        tools:layout_editor_absoluteY="645dp"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
