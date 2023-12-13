@@ -298,7 +298,7 @@ public class SearchResultsScreen extends AppCompatActivity {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 runOnUiThread( () -> {
-                    loadingText.setVisibility(View.VISIBLE);
+                    loadingText.setVisibility(View.GONE);
                     loadingSpinner.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "Query complete! Loading data...", Toast.LENGTH_SHORT).show();
                 });
