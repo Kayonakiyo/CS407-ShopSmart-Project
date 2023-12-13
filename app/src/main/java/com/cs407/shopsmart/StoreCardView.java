@@ -35,14 +35,14 @@ public class StoreCardView extends CardView {
         LayoutInflater.from(getContext()).inflate(R.layout.item_store_card, this, true);
         storeImageView = findViewById(R.id.storeImageView);
         storeNameTextView = findViewById(R.id.storeNameTextView);
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String storeName = storeNameTextView.getText().toString();
-                String toastMessage = storeName + " added to your preferred shops";
-                Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String storeName = storeNameTextView.getText().toString();
+//                String toastMessage = storeName + " added to your preferred shops";
+//                Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     public void setStoreName(String storeName) {

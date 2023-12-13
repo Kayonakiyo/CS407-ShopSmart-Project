@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +17,8 @@ public class RegistrationShopSelection extends AppCompatActivity {
 
     SharedPreferences userPreferences;
     SharedPreferences userSession;
+
+    Button storeSelectButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,9 @@ public class RegistrationShopSelection extends AppCompatActivity {
         // Shows the nav arrow on top of screen
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        storeSelectButton = findViewById(R.id.storeSelectButton);
+        storeSelectButton.setOnClickListener(view -> startActivity(new Intent(this, HomeScreen.class)));
 
         StoreCardView bookstoreStoreCardView = findViewById(R.id.bookstoreStoreCardView);
         bookstoreStoreCardView.setStoreName("UW Bookstore");

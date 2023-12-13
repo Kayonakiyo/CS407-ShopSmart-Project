@@ -22,6 +22,8 @@ public class HomeScreen extends AppCompatActivity {
     private HomeScreenAdapter adapter;
     Button logoutButton;
     Button cartButton;
+
+    Button setShopsButton;
     SharedPreferences userSession;
 
     @Override
@@ -35,6 +37,14 @@ public class HomeScreen extends AppCompatActivity {
             Intent switchToSavedShopping = new Intent(this, SavedShopping.class);
             startActivity(switchToSavedShopping);
         });
+
+        setShopsButton = findViewById(R.id.setShopsButton);
+        setShopsButton.setOnClickListener(v -> {
+            Intent switchToStoreSelecting = new Intent(this, RegistrationShopSelection.class);
+            startActivity(switchToStoreSelecting);
+        });
+
+
         logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(v -> {
             if(userSession.getBoolean("loggedIn", true)){
