@@ -103,7 +103,7 @@ public class MapScreen extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home){
-            navigateUpTo(new Intent(this, HomeLoginScreen.class));
+            navigateUpTo(new Intent(this, HomeScreen.class));
             return true;
         }
         return false;

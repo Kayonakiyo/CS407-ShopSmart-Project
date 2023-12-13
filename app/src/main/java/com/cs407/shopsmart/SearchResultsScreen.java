@@ -19,6 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.io.InputStreamReader;
@@ -26,6 +30,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -291,9 +296,7 @@ public class SearchResultsScreen extends AppCompatActivity {
 
 
         for (ShoppingCartData item : queriedData) {
-            if (item.getName().toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(item);
-            }
+            filteredList.add(item);
         }
 
         // Update UI on the main thread using runOnUiThread
@@ -317,6 +320,7 @@ public class SearchResultsScreen extends AppCompatActivity {
     }
 
     private List<ShoppingCartData> loadItemsFromJson(String rawData) {
+        rawData = cleanUpJson(rawData);
         Gson gson = new Gson();
         Type itemListType = new TypeToken<ArrayList<ShoppingCartData>>(){}.getType();
         try {
@@ -324,6 +328,52 @@ public class SearchResultsScreen extends AppCompatActivity {
             return data;
         } catch (JsonSyntaxException e) {
             return new ArrayList<>(); // Return an empty list if there's an error
+        }
+    }
+
+    /**
+     * Used to parse through endpoint's JSON response and see if any doubles have comma's in them,
+     * and if so, parse them out.
+     * @param rawJson
+     * @return
+     */
+    private String cleanUpJson(String rawJson){
+        // Parse JSON into a JsonArray
+        JsonParser parser = new JsonParser();
+        JsonElement jsonElement = parser.parse(rawJson);
+        JsonArray jsonArray = jsonElement.getAsJsonArray();
+
+        // Iterate through each JSON object in the array
+        for (JsonElement element : jsonArray) {
+            if (element.isJsonObject()) {
+                JsonObject jsonObject = element.getAsJsonObject();
+                checkAndUpdateValues(jsonObject);
+            }
+        }
+
+        // Convert the updated JsonArray to JSON string
+        Gson gson = new Gson();
+        String updatedJson = gson.toJson(jsonArray);
+        return updatedJson;
+    }
+
+    private void checkAndUpdateValues(JsonObject jsonObject) {
+        for (String key : jsonObject.keySet()) {
+            JsonElement value = jsonObject.get(key);
+
+            if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
+                String stringValue = value.getAsString();
+                if (stringValue.contains(",")) {
+                    String updatedValue = stringValue.replace(",", "");
+                    jsonObject.addProperty(key, updatedValue);
+                }
+                if (stringValue.contains("-")){
+                    String updatedValue = stringValue.substring(0, stringValue.indexOf('-')-1);
+                    jsonObject.addProperty(key, updatedValue);
+                }
+            } else if (value.isJsonObject()) {
+                checkAndUpdateValues(value.getAsJsonObject());
+            }
         }
     }
 
