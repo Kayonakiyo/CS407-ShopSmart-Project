@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,10 @@ public class SearchResultsScreen extends AppCompatActivity {
     private List<String> selectedStoresFilter = new ArrayList<>();
 
     private ExecutorService executorService;
+    private ProgressBar loadingSpinner;
+
+    private TextView loadingText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,8 @@ public class SearchResultsScreen extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        loadingSpinner = findViewById(R.id.loading_spinner);
+        loadingText = findViewById(R.id.loading_text);
         // Create a single-threaded ExecutorService
         executorService = Executors.newSingleThreadExecutor();
 
@@ -265,6 +272,11 @@ public class SearchResultsScreen extends AppCompatActivity {
         List<ShoppingCartData> filteredList = new ArrayList<>();
         ArrayList<ShoppingCartData> queriedData = new ArrayList<>();
 
+        runOnUiThread(() -> {
+            loadingText.setVisibility(View.VISIBLE);
+            loadingSpinner.setVisibility(View.VISIBLE);
+        });
+
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(30, TimeUnit.SECONDS) // Adjust the connection timeout
                 .readTimeout(30, TimeUnit.SECONDS)    // Adjust the read timeout
@@ -284,6 +296,11 @@ public class SearchResultsScreen extends AppCompatActivity {
         try {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
+                runOnUiThread( () -> {
+                    loadingText.setVisibility(View.VISIBLE);
+                    loadingSpinner.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Query complete! Loading data...", Toast.LENGTH_SHORT).show();
+                });
                 String responseData = response.body().string();
                 queriedData = (ArrayList<ShoppingCartData>) loadItemsFromJson(responseData);
             } else {
