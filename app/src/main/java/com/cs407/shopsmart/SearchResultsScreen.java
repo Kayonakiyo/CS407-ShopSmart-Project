@@ -28,6 +28,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -308,7 +309,9 @@ public class SearchResultsScreen extends AppCompatActivity {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle IO exceptions here
+            runOnUiThread(() -> {
+                Toast.makeText(getApplicationContext(), "Query timed out.", Toast.LENGTH_SHORT).show();
+            });
         }
 
 
@@ -442,6 +445,7 @@ public class SearchResultsScreen extends AppCompatActivity {
         }
 
         // Add distance filter logic when implemented
+
 
         adapter.updateList(filteredList);
 
