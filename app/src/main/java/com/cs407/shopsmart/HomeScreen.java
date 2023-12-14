@@ -1,11 +1,14 @@
 package com.cs407.shopsmart;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -24,11 +27,15 @@ public class HomeScreen extends AppCompatActivity {
 
     private RecyclerView trendingRecycler;
     private HomeScreenAdapter adapter;
+
+    private EditText searchItemEditText;
+
     Button logoutButton;
     Button cartButton;
 
     Button setShopsButton;
     SharedPreferences userSession;
+
 
     /**
      * Called when the activity is first created. Initializes the user interface,
@@ -42,6 +49,16 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
+
+        View backgroundClickView = findViewById(R.id.backgroundClickView);
+        searchItemEditText = findViewById(R.id.searchItem);
+
+        backgroundClickView.setOnClickListener(v -> hideKeyboard());
+        searchItemEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                hideKeyboard();
+            }
+        });
 
         // Initialize SharedPreferences for user session
         userSession = getSharedPreferences("userSession", MODE_PRIVATE);
@@ -176,4 +193,13 @@ public class HomeScreen extends AppCompatActivity {
                 "https://target.scene7.com/is/image/Target/GUEST_50d6171b-266c-4904-8cd8-d27881569b20?wid=1200&hei=1200&qlt=80&fmt=webp"));
         return items;
     }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 }

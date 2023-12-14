@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -27,6 +28,18 @@ public class SavedShopping extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_shopping);
+
+        // Find the checkoutButton by its ID
+        Button checkoutButton = findViewById(R.id.checkoutButton);
+
+        // Set an OnClickListener to handle the button click
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Display a Toast when the button is clicked
+                Toast.makeText(SavedShopping.this, "You just checked out!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         goToMap = findViewById(R.id.mapButton);
         goToMap.setOnClickListener(v -> {

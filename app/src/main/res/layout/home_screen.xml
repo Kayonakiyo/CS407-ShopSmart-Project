@@ -7,6 +7,15 @@
     android:background="@color/light_green"
     tools:context=".HomeScreen">
 
+    <View
+        android:id="@+id/backgroundClickView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/ShopSmartLogoImage"
         android:layout_width="194dp"
@@ -27,10 +36,11 @@
         android:layout_margin="3dp"
         android:background="@drawable/search_box"
         android:drawableLeft="@drawable/search_icon"
+        android:fontFamily="@font/inter"
         android:gravity="center"
         android:hint="Search"
         android:inputType="text"
-        android:textSize="8dp"
+        android:textSize="10dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,16 +67,19 @@
                 android:id="@+id/trendingText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:textSize="18dp"
                 android:text="Trending"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:backgroundTint="#000000"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trending_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:backgroundTint="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,8 +91,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:backgroundTint="#C8C8C8"
-                android:textColor="#000000"
-                android:text="Search for an item!" />
+                android:fontFamily="@font/inter"
+                android:text="Search for an item!"
+                android:textColor="#000000" />
 
         </LinearLayout>
 
@@ -101,121 +115,202 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Shop by Category"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textAlignment="center" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <androidx.gridlayout.widget.GridLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
-            android:paddingTop="40dp"
+            android:paddingTop="10dp"
             android:paddingBottom="40dp"
             app:alignmentMode="alignBounds"
             app:columnCount="3"
             app:rowCount="2">
 
             <Button
-                android:id="@+id/techButton"
+                android:id="@+id/clothingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Tech"
-                app:layout_columnWeight="1"
                 android:backgroundTint="#C8C8C8"
+                android:gravity="center"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Clothing"
                 android:textColor="#000000"
-                app:layout_gravity="fill_horizontal" />
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"/>
 
             <Button
                 android:id="@+id/homeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Home"
-                app:layout_columnWeight="1"
                 android:backgroundTint="#C8C8C8"
+                android:gravity="center"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Home"
                 android:textColor="#000000"
-                app:layout_gravity="fill_horizontal" />
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"/>
 
             <Button
                 android:id="@+id/toysButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Toys"
-                app:layout_columnWeight="1"
                 android:backgroundTint="#C8C8C8"
+                android:gravity="center"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Toys"
                 android:textColor="#000000"
-                app:layout_gravity="fill_horizontal" />
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"/>
 
             <Button
                 android:id="@+id/stationaryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Stationary"
-                app:layout_columnWeight="1"
                 android:backgroundTint="#C8C8C8"
+                android:gravity="center"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Stationery"
                 android:textColor="#000000"
-                app:layout_gravity="fill_horizontal" />
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"/>
 
             <Button
-                android:id="@+id/clothingButton"
+                android:id="@+id/techButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Clothing"
-                app:layout_columnWeight="1"
                 android:backgroundTint="#C8C8C8"
+                android:gravity="center"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Tech"
                 android:textColor="#000000"
-                app:layout_gravity="fill_horizontal" />
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"/>
 
             <Button
                 android:id="@+id/shopAllButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Shop All"
-                app:layout_columnWeight="1"
                 android:backgroundTint="#C8C8C8"
-                android:textColor="#000000"
-                app:layout_gravity="fill_horizontal" />
-
-            <Button
-                android:id="@+id/logoutButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#F4363C"
                 android:gravity="center"
-                android:text="Logout"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Shop All"
                 android:textColor="#000000"
                 app:layout_columnWeight="1"
-                app:layout_gravity="fill_horizontal" />
+                app:layout_gravity="fill_horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"/>
+
+
+        </androidx.gridlayout.widget.GridLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bottomToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_margin="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="?attr/colorPrimary">
+
+            <View
+                android:id="@+id/keyboardExitView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/cartButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#3498DB"
+                android:fontFamily="@font/inter"
                 android:gravity="center"
+                android:radius="20dp"
                 android:text="Cart"
-                app:layout_columnWeight="1"
-                android:backgroundTint="#d6b02e"
                 android:textColor="#000000"
+                app:layout_columnWeight="1"
                 app:layout_gravity="fill_horizontal" />
 
             <Button
                 android:id="@+id/setShopsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#3498DB"
+                android:fontFamily="@font/inter"
                 android:gravity="center"
+                android:radius="2dp"
                 android:text="Set Shops"
-                app:layout_columnWeight="1"
-                android:backgroundTint="#d6b02e"
                 android:textColor="#000000"
+                app:layout_columnWeight="1"
                 app:layout_gravity="fill_horizontal" />
-        </androidx.gridlayout.widget.GridLayout>
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#FA8072"
+                android:fontFamily="@font/inter"
+                android:gravity="center"
+                android:radius="100dp"
+                android:text="Logout"
+                android:textColor="#000000"
+                app:layout_columnWeight="1"
+                app:layout_gravity="fill_horizontal" />
+        </androidx.appcompat.widget.Toolbar>
+
     </LinearLayout>
 
 
