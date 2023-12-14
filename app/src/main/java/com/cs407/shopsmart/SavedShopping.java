@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Activity for managing and displaying saved shopping items.
+ */
 public class SavedShopping extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -24,6 +27,16 @@ public class SavedShopping extends AppCompatActivity {
     private ArrayList<ShoppingCartData> savedItems;
     private Button goToMap;
 
+    /**
+     * Called when the activity is first created. This is where you should do all of your normal
+     * static set up: create views, bind data to lists, etc. This method also provides you with
+     * a Bundle containing the activity's previously frozen state, if there was one.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     *                           shut down, then this Bundle contains the data it most recently
+     *                           supplied in onSaveInstanceState(Bundle). Note: Otherwise, it is
+     *                           null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

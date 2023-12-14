@@ -48,7 +48,9 @@ import okhttp3.Response;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 
-
+/**
+ * Represents the screen for displaying search results and applying filters.
+ */
 public class SearchResultsScreen extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -68,7 +70,13 @@ public class SearchResultsScreen extends AppCompatActivity {
 
     private TextView loadingText;
 
-
+    /**
+     * Called when the activity is first created. Responsible for initializing the activity components,
+     * setting up the UI, and handling any initial operations.
+     *
+     * @param savedInstanceState A Bundle containing the saved state of the activity, or null if
+     *                           this is the first time it is being created.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +142,10 @@ public class SearchResultsScreen extends AppCompatActivity {
         setupFilterChips();
     }
 
+    /**
+     * Sets up the filter chips by defining their behavior when checked or unchecked.
+     * These chips include priceFilterChip, storeFilterChip, and distFilterChip.
+     */
     private void setupFilterChips() {
         priceFilterChip.setOnCheckedChangeListener((chip, isChecked) -> {
             if (isChecked) {
@@ -160,6 +172,9 @@ public class SearchResultsScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Displays a dialog for filtering items based on price range.
+     */
     private void showPriceFilterDialog() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.dialog_price_filter, null);
@@ -194,6 +209,9 @@ public class SearchResultsScreen extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Displays a dialog for filtering items based on selected stores.
+     */
     private void showStoreFilterDialog() {
         final String[] stores = {"Best Buy", "Target", "Walmart", "Amazon", "UW Bookstore"};
         final boolean[] checkedStores = new boolean[stores.length];
@@ -226,6 +244,9 @@ public class SearchResultsScreen extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Displays a dialog for filtering items based on distance.
+     */
     private void showDistanceFilterDialog() {
         final String[] distances = {"5 miles", "10 miles", "15 miles"};
         int checkedItem = -1;
@@ -269,6 +290,12 @@ public class SearchResultsScreen extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Performs a search based on the provided query, retrieves search results from the server,
+     * and updates the UI accordingly.
+     *
+     * @param query The search query entered by the user.
+     */
     private void performSearch(String query) {
         List<ShoppingCartData> filteredList = new ArrayList<>();
         ArrayList<ShoppingCartData> queriedData = new ArrayList<>();
@@ -339,6 +366,12 @@ public class SearchResultsScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Parses the raw JSON data received from the server and converts it into a list of ShoppingCartData objects.
+     *
+     * @param rawData The raw JSON data as a string.
+     * @return A list of ShoppingCartData objects parsed from the JSON data.
+     */
     private List<ShoppingCartData> loadItemsFromJson(String rawData) {
         rawData = cleanUpJson(rawData);
         Gson gson = new Gson();
@@ -377,6 +410,11 @@ public class SearchResultsScreen extends AppCompatActivity {
         return updatedJson;
     }
 
+    /**
+     * Recursively iterates through a JsonObject to check and update numeric values.
+     *
+     * @param jsonObject The JsonObject to check and update.
+     */
     private void checkAndUpdateValues(JsonObject jsonObject) {
         for (String key : jsonObject.keySet()) {
             JsonElement value = jsonObject.get(key);
@@ -397,6 +435,12 @@ public class SearchResultsScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Applies a price filter to the search results within the specified range.
+     *
+     * @param minPrice The minimum price value for the filter.
+     * @param maxPrice The maximum price value for the filter.
+     */
     private void applyPriceFilter(double minPrice, double maxPrice) {
         minPriceFilter = minPrice;
         maxPriceFilter = maxPrice;
@@ -409,6 +453,11 @@ public class SearchResultsScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Applies a store filter to the search results based on the selected stores.
+     *
+     * @param selectedStores A list of selected stores for the filter.
+     */
     private void applyStoreFilter(List<String> selectedStores) {
         selectedStoresFilter = selectedStores;
         runOnUiThread(new Runnable() {
@@ -420,7 +469,11 @@ public class SearchResultsScreen extends AppCompatActivity {
         });
     }
 
-    // placeholder for the distance filter
+    /**
+     * Applies a distance filter to the search results within the specified distance range.
+     *
+     * @param distance The maximum distance for the filter.
+     */
     private void applyDistanceFilter(int distance) {
         // Update this method when distance filtering is done
         runOnUiThread(new Runnable() {
@@ -433,6 +486,9 @@ public class SearchResultsScreen extends AppCompatActivity {
 
     }
 
+    /**
+     * Applies all active filters (price, store, distance) to the search results and updates the UI.
+     */
     private void applyAllFilters() {
         List<ShoppingCartData> filteredList = new ArrayList<>(allItems);
 
@@ -455,6 +511,14 @@ public class SearchResultsScreen extends AppCompatActivity {
         // Update distance chip when implemented
     }
 
+    /**
+     * Filters a list of items based on the specified price range.
+     *
+     * @param items    The list of items to be filtered.
+     * @param minPrice The minimum price value for the filter.
+     * @param maxPrice The maximum price value for the filter.
+     * @return The filtered list of items.
+     */
     private List<ShoppingCartData> filterByPrice(List<ShoppingCartData> items, double minPrice, double maxPrice) {
         List<ShoppingCartData> result = new ArrayList<>();
         for (ShoppingCartData item : items) {
@@ -465,6 +529,13 @@ public class SearchResultsScreen extends AppCompatActivity {
         return result;
     }
 
+    /**
+     * Filters a list of items based on the selected stores.
+     *
+     * @param items          The list of items to be filtered.
+     * @param selectedStores The list of selected stores for the filter.
+     * @return The filtered list of items.
+     */
     private List<ShoppingCartData> filterByStores(List<ShoppingCartData> items, List<String> selectedStores) {
         List<ShoppingCartData> result = new ArrayList<>();
         for (ShoppingCartData item : items) {
@@ -475,6 +546,9 @@ public class SearchResultsScreen extends AppCompatActivity {
         return result;
     }
 
+    /**
+     * Clears the applied price filter and updates the UI.
+     */
     private void clearPriceFilter() {
         minPriceFilter = null;
         maxPriceFilter = null;
@@ -488,6 +562,9 @@ public class SearchResultsScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Clears the applied store filter and updates the UI.
+     */
     private void clearStoreFilter() {
         selectedStoresFilter.clear();
         storeFilterChip.setChecked(false);
@@ -500,6 +577,9 @@ public class SearchResultsScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * Clears the applied distance filter and updates the UI.
+     */
     private void clearDistanceFilter() {
         // Implement this when distance filtering is added
         distFilterChip.setChecked(false);
@@ -511,7 +591,4 @@ public class SearchResultsScreen extends AppCompatActivity {
             }
         });
     }
-
-
-
 }
